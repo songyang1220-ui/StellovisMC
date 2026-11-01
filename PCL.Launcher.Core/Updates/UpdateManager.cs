@@ -9,6 +9,9 @@ namespace PCL;
 
 public static class UpdateManager
 {
+    // StellovisMC must not replace itself with an upstream launcher release.
+    public static bool SupportsUpdates => false;
+
     public static bool isUpdateWaitingRestart;
 
     public static UpdatesWrapperModel remoteServer = new(
@@ -47,6 +50,9 @@ public static class UpdateManager
 
     public static UpdateEnums.VersionStatus GetVersionStatus()
     {
+        if (!SupportsUpdates)
+            return UpdateEnums.VersionStatus.Unknown;
+
         try
         {
             if (!IsCurrentVersionBeta || (int)Config.Update.UpdateChannel == 1)
@@ -97,8 +103,14 @@ public static class UpdateManager
         string? receivedKey = null,
         bool forceValidated = false)
     {
+        if (!SupportsUpdates)
+        {
+            UpdateUi.Current?.ShowHint(Lang.Text("Setup.Update.ManualOnly"), NotificationType.Info);
+            return;
+        }
+
         var dlTargetPath =
-            $@"{LauncherPaths.ExecutableDirectory}PCL\Plain Craft Launcher Community Edition.exe";
+            $@"{LauncherPaths.Data}Plain Craft Launcher Community Edition.exe";
         LauncherCommon.RunInNewThread(() =>
         {
             try
@@ -230,10 +242,12 @@ public static class UpdateManager
 
     public static void UpdateRestart(bool triggerRestartAndByEnd, bool triggerRestart = true)
     {
+        if (!SupportsUpdates)
+            return;
+
         try
         {
-            var fileName = LauncherPaths.ExecutableDirectory
-                + @"PCL\Plain Craft Launcher Community Edition.exe";
+            var fileName = LauncherPaths.Data + @"StellovisMC.exe";
             if (!File.Exists(fileName))
             {
                 LauncherCommon.Log("[System] 更新失败：未找到更新文件");
@@ -309,6 +323,9 @@ public static class UpdateManager
 
     private static void LoadOnlineInfo()
     {
+        if (!SupportsUpdates)
+            return;
+
         ScheduleBasedOnConfig();
         AnnouncementService.Load();
     }
@@ -340,15 +357,4 @@ public static class UpdateManager
         }
     }
 
-    /// <summary>
-    ///     展示社区版提示
-    /// </summary>
-    /// <param name="IsUpdate">是否为更新时启动</param>
-    public static void ShowCeAnnounce()
-    {
-        UpdateUi.Current?.ShowMessageBox(
-            Lang.Text("Update.CommunityNotice.Body"),
-            Lang.Text("Update.CommunityNotice.Title"),
-            Lang.Text("Update.CommunityNotice.Confirm"));
-    }
 }

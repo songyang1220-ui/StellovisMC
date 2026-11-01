@@ -32,7 +32,7 @@ public static partial class Music
             if (musicAllList is null)
             {
                 musicAllList = [];
-                var musicDir = Path.Combine(Common.ExePath, "PCL", "Musics");
+                var musicDir = Path.Combine(PCL.Core.App.Paths.Data, "Musics");
                 Directory.CreateDirectory(musicDir);
                 foreach (var file in Common.EnumerateFiles(musicDir))
                 {

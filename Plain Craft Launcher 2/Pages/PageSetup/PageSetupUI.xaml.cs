@@ -43,7 +43,6 @@ public partial class PageSetupUI : IPageView
 
         SliderLoad();
 
-        _vm.ShowLauncherHint();
     }
 
     public void OnNavigatedTo(object? parameter)
@@ -274,7 +273,7 @@ public partial class PageSetupUI : IPageView
     // 背景图片
     private void BtnUIBgOpen_Click(object sender, MouseButtonEventArgs e)
     {
-        Common.OpenExplorer(Common.ExePath + @"PCL\Pictures\");
+        Common.OpenExplorer(Common.DataPath + @"Pictures\");
     }
 
     private void BtnBackgroundRefresh_Click(object sender, MouseButtonEventArgs e)
@@ -303,7 +302,7 @@ public partial class PageSetupUI : IPageView
         {
             if (!await _vm.ConfirmBackgroundClearAsync())
                 return;
-            Common.DeleteDirectory(Common.ExePath + @"PCL\Pictures");
+            Common.DeleteDirectory(Common.DataPath + @"Pictures");
             BackgroundRefresh(false, true);
             HintService.Show(Hints.Success(Lang.Text("Setup.Ui.Background.Clear.Success")));
         }
@@ -328,8 +327,8 @@ public partial class PageSetupUI : IPageView
         try
         {
             // 获取可用的图片文件
-            Directory.CreateDirectory(Common.ExePath + @"PCL\Pictures\");
-            var pic = Common.EnumerateFiles(Common.ExePath + @"PCL\Pictures\").Where(file =>
+            Directory.CreateDirectory(Common.DataPath + @"Pictures\");
+            var pic = Common.EnumerateFiles(Common.DataPath + @"Pictures\").Where(file =>
                     !(file.Extension.Equals(".ini", StringComparison.OrdinalIgnoreCase) ||
                       file.Extension.Equals(".db", StringComparison.OrdinalIgnoreCase))).Select(file => file.FullName)
                 .ToList();
@@ -452,11 +451,11 @@ public partial class PageSetupUI : IPageView
         try
         {
             // 拷贝文件
-            File.Delete(Common.ExePath + @"PCL\Logo.png");
-            Common.CopyFile(fileName, Common.ExePath + @"PCL\Logo.png");
+            File.Delete(Common.DataPath + @"Logo.png");
+            Common.CopyFile(fileName, Common.DataPath + @"Logo.png");
             // 设置当前显示
             Launcher.frmMain.ImageTitleLogo.Source = null; // 防止因为 Source 属性前后的值相同而不更新 (#5628)
-            Launcher.frmMain.ImageTitleLogo.Source = Common.ExePath + @"PCL\Logo.png";
+            Launcher.frmMain.ImageTitleLogo.Source = Common.DataPath + @"Logo.png";
         }
         catch (Exception ex)
         {
@@ -485,12 +484,12 @@ public partial class PageSetupUI : IPageView
         Refresh: ;
 
         // 已有图片则不再选择
-        if (File.Exists(Common.ExePath + @"PCL\Logo.png"))
+        if (File.Exists(Common.DataPath + @"Logo.png"))
         {
             try
             {
                 Launcher.frmMain.ImageTitleLogo.Source = null; // 防止因为 Source 属性前后的值相同而不更新 (#5628)
-                Launcher.frmMain.ImageTitleLogo.Source = Common.ExePath + @"PCL\Logo.png";
+                Launcher.frmMain.ImageTitleLogo.Source = Common.DataPath + @"Logo.png";
             }
             catch (Exception ex)
             {
@@ -512,7 +511,7 @@ public partial class PageSetupUI : IPageView
                 e.handled = true;
                 try
                 {
-                    File.Delete(Common.ExePath + @"PCL\Logo.png");
+                    File.Delete(Common.DataPath + @"Logo.png");
                 }
                 catch (Exception exx)
                 {
@@ -539,8 +538,8 @@ public partial class PageSetupUI : IPageView
             try
             {
                 // 拷贝文件
-                File.Delete(Common.ExePath + @"PCL\Logo.png");
-                Common.CopyFile(fileName, Common.ExePath + @"PCL\Logo.png");
+                File.Delete(Common.DataPath + @"Logo.png");
+                Common.CopyFile(fileName, Common.DataPath + @"Logo.png");
                 goto Refresh;
             }
             catch (Exception ex)
@@ -558,7 +557,7 @@ public partial class PageSetupUI : IPageView
     {
         try
         {
-            File.Delete(Common.ExePath + @"PCL\Logo.png");
+            File.Delete(Common.DataPath + @"Logo.png");
             RadioLogoType1.SetChecked(true, true);
             HintService.Show(Hints.Success(Lang.Text("Setup.Ui.Logo.Clear.Success")));
         }
@@ -575,7 +574,7 @@ public partial class PageSetupUI : IPageView
     // 背景音乐
     private void BtnMusicOpen_Click(object sender, MouseButtonEventArgs e)
     {
-        Common.OpenExplorer(Common.ExePath + @"PCL\Musics\");
+        Common.OpenExplorer(Common.DataPath + @"Musics\");
     }
 
     private void BtnMusicRefresh_Click(object sender, MouseButtonEventArgs e)
@@ -589,7 +588,7 @@ public partial class PageSetupUI : IPageView
             return;
         var hasMusic = Music.musicAllList.Any();
         var musicCount = Music.musicAllList.Count;
-        _vm.ApplyMusicState(hasMusic, hasMusic ? Common.EnumerateFiles(Common.ExePath + @"PCL\Musics\").Count() : 0);
+        _vm.ApplyMusicState(hasMusic, hasMusic ? Common.EnumerateFiles(Common.DataPath + @"Musics\").Count() : 0);
         LocalizedText.TryBind(
             CardMusic,
             "Title",
@@ -617,7 +616,7 @@ public partial class PageSetupUI : IPageView
                 // 删除文件
                 try
                 {
-                    Common.DeleteDirectory(Common.ExePath + @"PCL\Musics");
+                    Common.DeleteDirectory(Common.DataPath + @"Musics");
                     // DisableSMTCSupport()
                     HintService.Show(Hints.Success(Lang.Text("Setup.Ui.Music.Delete.Success")));
                 }
@@ -632,7 +631,7 @@ public partial class PageSetupUI : IPageView
 
                 try
                 {
-                    Directory.CreateDirectory(Common.ExePath + @"PCL\Musics");
+                    Directory.CreateDirectory(Common.DataPath + @"Musics");
                     Common.RunInUi(() => Music.MusicRefreshPlay(false));
                 }
                 catch (Exception ex)
@@ -694,12 +693,6 @@ public partial class PageSetupUI : IPageView
             return;
         SetByTag(sender.Tag?.ToString(), sender.SelectedIndex);
         ThemeManager.ThemeRefresh();
-    }
-
-    // 赞助
-    private void BtnLauncherDonate_Click(object sender, MouseButtonEventArgs e)
-    {
-        Common.OpenWebsite("https://afdian.com/a/LTCat");
     }
 
     // 滑动条

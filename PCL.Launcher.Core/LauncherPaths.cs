@@ -10,7 +10,7 @@ public static class LauncherPaths
 
     /// <summary>程序内嵌图片根路径。</summary>
     public const string ImageRoot =
-        "pack://application:,,,/Plain Craft Launcher 2;component/Images/";
+        "pack://application:,,,/StellovisMC;component/Images/";
 
     /// <summary>程序可执行文件所在目录，以“\”结尾。</summary>
     public static string ExecutableDirectory { get; } =
@@ -21,20 +21,22 @@ public static class LauncherPaths
     /// <summary>临时目录，以“\”结尾。</summary>
     public static string Temp => Paths.Temp + "\\";
 
+    public static string Data => Paths.Data + "\\";
+
     /// <summary>可用于临时存放文件的、不含特殊字符的目录，以“\”结尾。</summary>
     public static string PureAsciiDirectory
     {
         get
         {
-            if (ExecutableDirectory.All(c => c < 128))
-                return Path.Combine(ExecutableDirectory, "PCL") + "\\";
+            if (Data.All(c => c < 128))
+                return Data;
             var temp = Path.GetTempPath();
             if (temp.All(c => c < 128))
                 return temp.EndsWith('\\') ? temp : temp + "\\";
             return Path.Combine(
                 Path.GetPathRoot(Environment.SystemDirectory) ?? "C:\\",
                 "ProgramData",
-                "PCL");
+                Paths.DataDirectoryName) + "\\";
         }
     }
 

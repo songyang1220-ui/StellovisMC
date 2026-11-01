@@ -8,7 +8,7 @@
     PanScroll="{Binding ElementName=PanBack}">
     <local:MyScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" x:Name="PanBack">
         <StackPanel x:Name="PanMain" Margin="25,25,25,10">
-            <local:MyCard Height="Auto">
+            <local:MyCard Height="Auto" Visibility="Collapsed">
                 <StackPanel Margin="20,15,20,15">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -83,7 +83,7 @@
                                        HorizontalAlignment="Left" VerticalAlignment="Center" />
                         <TextBlock x:Name="TextUpdateName" Text="{Binding UpdateNameText, Mode=OneWay}" FontWeight="Bold" FontSize="20"
                                    Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
-                        <TextBlock x:Name="TextUpdateDesc" Text="by PCL-Community" FontSize="14" Grid.Row="2"
+                        <TextBlock x:Name="TextUpdateDesc" Text="StellovisMC" FontSize="14" Grid.Row="2"
                                    Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <local:MyButton x:Name="BtnUpdate" Text="{loc:Loc Setup.Update.Install}" ColorType="Highlight" Grid.Row="0"
                                         Grid.RowSpan="2" Grid.Column="3" HorizontalAlignment="Center"

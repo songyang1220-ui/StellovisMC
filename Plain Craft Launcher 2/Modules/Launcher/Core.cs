@@ -9,7 +9,6 @@ public static partial class Launcher
     private const int AprilTimerSleepMs = 1;
     private const int LongTimerInterval = 150;
     public static FormMain? frmMain;
-    public static SplashScreen? frmStart;
     public static PageLaunchLeft? frmLaunchLeft;
     public static PageLaunchRight? frmLaunchRight;
     public static PageLogLeft? frmLogLeft;

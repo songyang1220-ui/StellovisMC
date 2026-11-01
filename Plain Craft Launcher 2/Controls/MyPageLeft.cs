@@ -64,7 +64,7 @@ public class MyPageLeft : Grid
             // 缩放动画
             if (RenderTransform is not ScaleTransform)
             {
-                RenderTransform = new ScaleTransform(0.96d, 0.96d);
+                RenderTransform = new ScaleTransform(0.985d, 0.985d);
                 RenderTransformOrigin = new Point(0.5d, 0.5d);
             }
 
@@ -73,8 +73,8 @@ public class MyPageLeft : Grid
                 new[]
                 {
                     Animations.AaScaleTransform(this, 1d - ((ScaleTransform)RenderTransform).ScaleX,
-                        ease: new Animations.AniEaseOutBack((Animations.AniEasePower)2)),
-                    Animations.AaOpacity(this, 1d, 100)
+                        260, ease: new Animations.AniEaseOutFluent(Animations.AniEasePower.Strong)),
+                    Animations.AaOpacity(this, 1d, 180)
                 }, "PageLeft PageChange " + uuid);
         }
         else
@@ -97,23 +97,21 @@ public class MyPageLeft : Grid
                 else
                 {
                     element.Opacity = 0d;
-                    element.RenderTransform = new TranslateTransform(-25, 0d);
+                    element.RenderTransform = new TranslateTransform(-12, 0d);
                     if (element is MyListItem)
                         ((MyListItem)element).isMouseOverAnimationEnabled = false;
-                    aniList.Add(Animations.AaOpacity(element, element is TextBlock ? 0.6d : 1d, 100,
+                    aniList.Add(Animations.AaOpacity(element, element is TextBlock ? 0.6d : 1d, 180,
                         delay,
                         new Animations.AniEaseOutFluent(Animations.AniEasePower.Weak)));
-                    aniList.Add(Animations.AaTranslateX(element, 5d, 200, delay,
-                        new Animations.AniEaseOutFluent()));
-                    aniList.Add(Animations.AaTranslateX(element, 20d, 300, delay,
-                        new Animations.AniEaseOutBack(Animations.AniEasePower.Weak)));
+                    aniList.Add(Animations.AaTranslateX(element, 12d, 260, delay,
+                        new Animations.AniEaseOutFluent(Animations.AniEasePower.Strong)));
                     if (element is MyListItem)
                         aniList.Add(Animations.AaCode(() =>
                         {
                             ((MyListItem)element).isMouseOverAnimationEnabled = true;
                             ((MyListItem)element).RefreshColor(this, new EventArgs());
                         }, delay + 280));
-                    delay += Math.Max(15 - id, 7) * 2;
+                    delay = Math.Min(delay + 18, 90);
                     id += 1;
                 }
             }

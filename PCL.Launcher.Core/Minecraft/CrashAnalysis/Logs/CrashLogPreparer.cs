@@ -25,6 +25,8 @@ internal sealed class CrashLogPreparer(CrashAnalysisContext context)
         new(StringComparer.OrdinalIgnoreCase)
         {
             "启动器日志.txt",
+            "StellovisMC 启动器日志.txt",
+            "StellovisMC 启动器日志.log",
             "PCL2 启动器日志.txt",
             "PCL 启动器日志.txt",
             "PCL CE 启动器日志.txt",
@@ -193,6 +195,8 @@ internal sealed class CrashLogPreparer(CrashAnalysisContext context)
                  {
                      "rawoutput.log",
                      "启动器日志.txt",
+                     "StellovisMC 启动器日志.txt",
+                     "StellovisMC 启动器日志.log",
                      "log1.txt",
                      "log-ce1.log",
                      "游戏崩溃前的输出.txt",

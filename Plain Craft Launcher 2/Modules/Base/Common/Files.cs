@@ -21,7 +21,7 @@ public static partial class Common
     public static void IniClearCache(string fileName)
     {
         if (!fileName.Contains(@":\"))
-            fileName = $@"{ExePath}PCL\{fileName}.ini";
+            fileName = $@"{DataPath}{fileName}.ini";
         IniCache.Remove(fileName, out _);
     }
 
@@ -35,7 +35,7 @@ public static partial class Common
         try
         {
             if (!fileName.Contains(@":\"))
-                fileName = $@"{ExePath}PCL\{fileName}.ini";
+                fileName = $@"{DataPath}{fileName}.ini";
             if (IniCache.TryGetValue(fileName, out var value))
                 return value;
             if (!File.Exists(fileName))
@@ -124,7 +124,7 @@ public static partial class Common
                 }
 
                 if (!fileName.Contains(@":\"))
-                    fileName = $@"{ExePath}PCL\{fileName}.ini";
+                    fileName = $@"{DataPath}{fileName}.ini";
                 WriteFile(fileName, fileContent.ToString());
             }
         }

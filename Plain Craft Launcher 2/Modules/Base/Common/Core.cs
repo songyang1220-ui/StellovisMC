@@ -35,11 +35,13 @@ public static partial class Common
         ? Basics.ExecutableDirectory
         : Basics.ExecutableDirectory + @"\";
 
+    public static string DataPath => Paths.Data + @"\";
+
     /// <summary>
     ///     程序内嵌图片文件夹路径，以“/”结尾。
     /// </summary>
     public const string PathImage =
-        "pack://application:,,,/Plain Craft Launcher 2;component/Images/";
+        "pack://application:,,,/StellovisMC;component/Images/";
 
     /// <summary>
     ///     当前程序的语言。
@@ -72,17 +74,16 @@ public static partial class Common
     public static string pathTemp = Paths.Temp + @"\";
 
     /// <summary>
-    ///     AppData 中的 PCL 文件夹路径，以 \ 结尾。
+    ///     共享本地数据文件夹路径，以 \ 结尾。
     /// </summary>
     public static string pathAppdata =
-        $@"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PCL")}\";
+        Paths.SharedLocalData + @"\";
 
     /// <summary>
     ///     AppData 中的 PCLCE 配置文件夹路径，以 \ 结尾。
     /// </summary>
     public static string pathAppdataConfig =
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
-        + (VersionBranchName == "Debug" ? @"\.pclcedebug\" : @"\.pclce\");
+        Paths.SharedData + @"\";
 
     /// <summary>
     ///     纯 ASCII 路径，用于避免部分程序对非 ASCII 路径的兼容问题。

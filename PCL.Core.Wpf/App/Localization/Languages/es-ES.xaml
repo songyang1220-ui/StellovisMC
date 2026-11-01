@@ -10,4 +10,22 @@
     <sys:String x:Key="Meta.Code">es-ES</sys:String>
     <sys:String x:Key="Meta.Name">Español (España)</sys:String>
 
+    <sys:String x:Key="Setup.Update.ManualOnly">StellovisMC es una versión personalizada. Actualízala manualmente; las actualizaciones automáticas originales están desactivadas.</sys:String>
+    <sys:String x:Key="Stellovis.Home.Title">Tu próxima aventura&#xA;empieza aquí.</sys:String>
+    <sys:String x:Key="Stellovis.Home.Description">Elige tu juego o instala una versión nueva.</sys:String>
+    <sys:String x:Key="Stellovis.Home.SelectInstance">Elegir un juego</sys:String>
+    <sys:String x:Key="Stellovis.Home.Install">Instalar versión</sys:String>
+    <sys:String x:Key="Stellovis.Home.Discover.Title">Explora más</sys:String>
+    <sys:String x:Key="Stellovis.Home.Discover.Description">Descubre versiones, mods y recursos para tu mundo.</sys:String>
+    <sys:String x:Key="Stellovis.Home.Discover.Action">Ver descargas</sys:String>
+    <sys:String x:Key="Stellovis.Home.Settings.Title">Hazlo tuyo</sys:String>
+    <sys:String x:Key="Stellovis.Home.Settings.Description">Personaliza el tema, el juego y las opciones de inicio.</sys:String>
+    <sys:String x:Key="Stellovis.Home.Settings.Action">Abrir ajustes</sys:String>
+    <sys:String x:Key="Stellovis.Sidebar.Title">Juegos y cuentas</sys:String>
+    <sys:String x:Key="Setup.Ui.Homepage.Blank">Vista general</sys:String>
+    <sys:String x:Key="Setup.Ui.Theme.Color.SkyBlue">Azul cielo</sys:String>
+    <sys:String x:Key="Setup.Ui.Theme.Color.CatBlue">Azul estelar</sys:String>
+    <sys:String x:Key="Setup.Ui.Theme.Color.CrashBlue">Azul profundo</sys:String>
+    <sys:String x:Key="Setup.Ui.Background.ColorOverlay">Fondo estrellado</sys:String>
+    <sys:String x:Key="Setup.Ui.Background.ColorOverlay.ToolTip">Muestra nebulosas, estrellas y polvo estelar. Tus imágenes y vídeos tienen prioridad. Al desactivar las animaciones, el cielo queda estático.</sys:String>
 </ResourceDictionary>

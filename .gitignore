@@ -346,3 +346,18 @@ MaskFiles/
 # macOS
 
 **/.DS_Store
+
+# StellovisMC local outputs and private runtime data
+/dist/
+/verification/
+/.superpowers/
+**/.minecraft/
+**/StellovisMC/
+*.env
+.env.*
+!.env.example
+UserKey.bin
+instance.lock
+*.db
+*.db-shm
+*.db-wal

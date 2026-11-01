@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
 using PCL.Core.App;
 using PCL.Core.App.Configuration;
 using PCL.Core.UI.Theme;
@@ -103,31 +104,20 @@ public partial class MyHint
 
     private void UpdateUI()
     {
-        var hue = default(double);
-        switch (Theme)
+        var (background, foreground, border) = (Theme, ThemeService.IsDarkMode) switch
         {
-            case Themes.Blue:
-            {
-                hue = 210d;
-                break;
-            }
-            case Themes.Red:
-            {
-                hue = 355d;
-                break;
-            }
-            case Themes.Yellow:
-            {
-                hue = 40d;
-                break;
-            }
-        }
-
-        var s = ThemeService.CurrentTone;
-        Background = new Common.MyColor().FromHsl2(hue, 90, s.L7 * 100);
-        BorderBrush = new Common.MyColor().FromHsl2(hue, 90, s.L2 * 100);
-        LabText.Foreground = new Common.MyColor().FromHsl2(hue, 90, s.L2 * 100);
-        BtnClose.Foreground = new Common.MyColor().FromHsl2(hue, 90, s.L2 * 100);
+            (Themes.Red, false) => ("#FBEDEC", "#9E403D", "#D28A86"),
+            (Themes.Red, true) => ("#40282D", "#F0BBB7", "#B2716D"),
+            (Themes.Yellow, false) => ("#FAF2E1", "#8A642B", "#C6A16A"),
+            (Themes.Yellow, true) => ("#392F21", "#E7CA96", "#B29460"),
+            (_, true) => ("#1D3046", "#B6D2EF", "#5A82AB"),
+            _ => ("#E9F1FA", "#345F91", "#83A6CE")
+        };
+        var converter = new BrushConverter();
+        Background = (Brush)converter.ConvertFromString(background)!;
+        BorderBrush = (Brush)converter.ConvertFromString(border)!;
+        LabText.Foreground = (Brush)converter.ConvertFromString(foreground)!;
+        BtnClose.Foreground = (SolidColorBrush)LabText.Foreground;
 
         // 根据提示气泡对齐方向刷新边框
         // 此处依赖 HasBorder 的副作用进行范围检查

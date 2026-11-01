@@ -1002,23 +1002,23 @@ public partial class PageInstanceExport : IRefreshable, IPageView
                 Common.CopyDirectory(Path.Combine(mcInstance.PathInstance, "PCL"), Path.Combine(overridesFolder, "PCL"));
 #if RELEASE
                         // 复制 PCL 本体
-                        if (includePCL) Common.CopyFile(Basics.ExecutablePath, Path.Combine(cacheFolder, Basics.ExecutableName));
+                        if (includePcl) Common.CopyFile(Basics.ExecutablePath, Path.Combine(cacheFolder, Basics.ExecutableName));
 #endif
                 // 复制 PCL 个性化内容
                 if (includePclCustom)
                 {
-                    if (Directory.Exists(Path.Combine(Common.ExePath, "PCL", "Pictures")))
-                        Common.CopyDirectory(Path.Combine(Common.ExePath, "PCL", "Pictures"), Path.Combine(cacheFolder, "PCL", "Pictures"));
-                    if (Directory.Exists(Path.Combine(Common.ExePath, "PCL", "Musics")))
-                        Common.CopyDirectory(Path.Combine(Common.ExePath, "PCL", "Musics"), Path.Combine(cacheFolder, "PCL", "Musics"));
-                    if (File.Exists(Path.Combine(Common.ExePath, "PCL", "Custom.xaml")))
-                        Common.CopyFile(Path.Combine(Common.ExePath, "PCL", "Custom.xaml"), Path.Combine(cacheFolder, "PCL", "Custom.xaml"));
-                    if (File.Exists(Path.Combine(Common.ExePath, "PCL", "Setup.ini")))
-                        Common.CopyFile(Path.Combine(Common.ExePath, "PCL", "Setup.ini"), Path.Combine(cacheFolder, "PCL", "Setup.ini"));
-                    if (File.Exists(Path.Combine(Common.ExePath, "PCL", "hints.txt")))
-                        Common.CopyFile(Path.Combine(Common.ExePath, "PCL", "hints.txt"), Path.Combine(cacheFolder, "PCL", "hints.txt"));
-                    if (File.Exists(Path.Combine(Common.ExePath, "PCL", "Logo.png")))
-                        Common.CopyFile(Path.Combine(Common.ExePath, "PCL", "Logo.png"), Path.Combine(cacheFolder, "PCL", "Logo.png"));
+                    if (Directory.Exists(Path.Combine(PCL.Core.App.Paths.Data, "Pictures")))
+                        Common.CopyDirectory(Path.Combine(PCL.Core.App.Paths.Data, "Pictures"), Path.Combine(cacheFolder, PCL.Core.App.Paths.DataDirectoryName, "Pictures"));
+                    if (Directory.Exists(Path.Combine(PCL.Core.App.Paths.Data, "Musics")))
+                        Common.CopyDirectory(Path.Combine(PCL.Core.App.Paths.Data, "Musics"), Path.Combine(cacheFolder, PCL.Core.App.Paths.DataDirectoryName, "Musics"));
+                    if (File.Exists(Path.Combine(PCL.Core.App.Paths.Data, "Custom.xaml")))
+                        Common.CopyFile(Path.Combine(PCL.Core.App.Paths.Data, "Custom.xaml"), Path.Combine(cacheFolder, PCL.Core.App.Paths.DataDirectoryName, "Custom.xaml"));
+                    if (File.Exists(Path.Combine(PCL.Core.App.Paths.Data, "Setup.ini")))
+                        Common.CopyFile(Path.Combine(PCL.Core.App.Paths.Data, "Setup.ini"), Path.Combine(cacheFolder, PCL.Core.App.Paths.DataDirectoryName, "Setup.ini"));
+                    if (File.Exists(Path.Combine(PCL.Core.App.Paths.Data, "hints.txt")))
+                        Common.CopyFile(Path.Combine(PCL.Core.App.Paths.Data, "hints.txt"), Path.Combine(cacheFolder, PCL.Core.App.Paths.DataDirectoryName, "hints.txt"));
+                    if (File.Exists(Path.Combine(PCL.Core.App.Paths.Data, "Logo.png")))
+                        Common.CopyFile(Path.Combine(PCL.Core.App.Paths.Data, "Logo.png"), Path.Combine(cacheFolder, PCL.Core.App.Paths.DataDirectoryName, "Logo.png"));
                 }
             })
         {

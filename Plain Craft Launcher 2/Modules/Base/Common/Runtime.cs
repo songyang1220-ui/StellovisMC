@@ -31,10 +31,10 @@ public static partial class Common
     /// </summary>
     private static string GetPureAsciiDir()
     {
-        if (ExePath.IsAscii()) return $@"{ExePath}PCL\";
+        if (ExePath.IsAscii()) return $@"{DataPath}";
         if (pathAppdata.IsAscii()) return pathAppdata;
         if (pathTemp.IsAscii()) return pathTemp;
-        return Path.Combine(SystemPaths.DriveLetter, "ProgramData", "PCL");
+        return Path.Combine(SystemPaths.DriveLetter, "ProgramData", PCL.Core.App.Paths.DataDirectoryName);
     }
 
     extension(Type genericType)

@@ -360,7 +360,7 @@ public static partial class Common
                     ?.Button
                 == 1);
         if (shouldOpenLogFolder)
-            OpenExplorer(ExePath + @"PCL\Log\");
+            OpenExplorer(DataPath + @"Log\");
         OpenWebsite("https://github.com/PCL-Community/PCL2-CE/issues/");
     }
 

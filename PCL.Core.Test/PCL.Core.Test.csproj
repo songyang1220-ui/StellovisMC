@@ -55,6 +55,8 @@
         <ProjectReference Include="..\PCL.Core.Wpf\PCL.Core.Wpf.csproj" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="..\Plain Craft Launcher 2\Controls\StarfieldBackground.cs" Link="UI\StarfieldBackground.cs" />
+        <Compile Include="..\Plain Craft Launcher 2\Controls\StartupAnimation.cs" Link="UI\StartupAnimation.cs" />
         <Compile Remove="Net\**" />
     </ItemGroup>
     <ItemGroup>

@@ -56,8 +56,8 @@ public partial class Application
                     }
 
             // 初始化文件结构
-            Directory.CreateDirectory(Common.ExePath + @"PCL\Pictures");
-            Directory.CreateDirectory(Common.ExePath + @"PCL\Musics");
+            Directory.CreateDirectory(Common.DataPath + @"Pictures");
+            Directory.CreateDirectory(Common.DataPath + @"Musics");
             Directory.CreateDirectory(Path.Combine(Common.pathTemp, "Cache"));
             Directory.CreateDirectory(Path.Combine(Common.pathTemp, "Download"));
             Directory.CreateDirectory(Common.pathAppdata);
@@ -66,13 +66,6 @@ public partial class Application
             ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(DependencyObject),
                 new FrameworkPropertyMetadata(100));
             Tooltip.Enable();
-
-            // 设置初始窗口
-            if (Config.Preference.ShowStartupLogo)
-            {
-                Launcher.frmStart = new SplashScreen(@"Images\icon.ico");
-                Launcher.frmStart.Show(false, true);
-            }
 
             // 设置初始化
             _ = Config.Debug.Enabled;
@@ -92,7 +85,7 @@ public partial class Application
             // 删除旧日志
             for (var i = 1; i <= 5; i++)
             {
-                var oldLogFile = $@"{Common.ExePath}PCL\Log-CE{i}.log";
+                var oldLogFile = $@"{Common.DataPath}Log-CE{i}.log";
                 if (File.Exists(oldLogFile))
                     File.Delete(oldLogFile);
             }

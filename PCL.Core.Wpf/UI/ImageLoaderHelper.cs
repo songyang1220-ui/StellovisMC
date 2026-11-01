@@ -27,7 +27,7 @@ public static class ImageLoaderHelper
             base64String,
             imageElement,
             defaultImageUri
-            ?? "pack://application:,,,/Plain Craft Launcher 2;component/Images/Icons/DefaultServer.png");
+            ?? "pack://application:,,,/StellovisMC;component/Images/Icons/DefaultServer.png");
     }
 
     /// <summary>

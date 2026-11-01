@@ -12,8 +12,8 @@ namespace PCL;
 public class MyCard : AnimatedBackgroundGrid
 {
     // 动画
-    private const double DropShadowIdleOpacity = 0.07d;
-    private const double DropShadowHoverOpacity = 0.4d;
+    private const double DropShadowIdleOpacity = 0.035d;
+    private const double DropShadowHoverOpacity = 0.12d;
 
     public static readonly DependencyProperty TitleProperty =
         DependencyProperty.Register("Title", typeof(string), typeof(MyCard), new PropertyMetadata("", OnTitleChanged));
@@ -30,18 +30,19 @@ public class MyCard : AnimatedBackgroundGrid
     {
         MainChrome = new MyDropShadow
         {
-            Margin = new Thickness(-3, -3, -3, -3 - Common.GetWpfSize(1d)), ShadowRadius = 3d,
-            Opacity = DropShadowIdleOpacity, CornerRadius = new CornerRadius(5d)
+            Margin = new Thickness(-4, -2, -4, -6), ShadowRadius = 8d,
+            Opacity = DropShadowIdleOpacity, CornerRadius = new CornerRadius(14d)
         };
-        MainChrome.SetResourceReference(MyDropShadow.ColorProperty, "ColorObject1");
+        MainChrome.SetResourceReference(MyDropShadow.ColorProperty, "StellovisShadowColor");
         Children.Insert(0, MainChrome);
         _mainBorder = new BlurBorder
-            { CornerRadius = new CornerRadius(5d), IsHitTestVisible = false };
+            { CornerRadius = new CornerRadius(14d), BorderThickness = new Thickness(1), IsHitTestVisible = false };
+        _mainBorder.SetResourceReference(Border.BorderBrushProperty, "StellovisBorderBrush");
         Children.Insert(1, _mainBorder);
         _mainGrid = new Grid();
         Children.Add(_mainGrid);
         // 设置背景色
-        SetResourceReference(BackgroundBrushProperty, "ColorBrushTransparentBackground");
+        SetResourceReference(BackgroundBrushProperty, "StellovisSurfaceBrush");
         Loaded += (_, _) => Init();
         MouseEnter += MyCard_MouseEnter;
         MouseLeave += MyCard_MouseLeave;
@@ -84,7 +85,7 @@ public class MyCard : AnimatedBackgroundGrid
 
     public static readonly DependencyProperty CornerRadiusProperty =
         DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(MyCard),
-            new PropertyMetadata(new CornerRadius(5d), OnCornerRadiusChanged));
+            new PropertyMetadata(new CornerRadius(14d), OnCornerRadiusChanged));
 
     public CornerRadius CornerRadius
     {
@@ -149,7 +150,7 @@ public class MyCard : AnimatedBackgroundGrid
             MainTextBlock = new TextBlock
             {
                 HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(15d, 12d, 0d, 0d), FontWeight = FontWeights.Bold, FontSize = 13d,
+                Margin = new Thickness(19d, 13d, 0d, 0d), FontWeight = FontWeights.SemiBold, FontSize = 13d,
                 IsHitTestVisible = false
             };
             MainTextBlock.SetResourceReference(TextBlock.ForegroundProperty, "ColorBrush1");
@@ -226,8 +227,7 @@ public class MyCard : AnimatedBackgroundGrid
             aniList.Add(Animations.AaColor(MainSwap, Shape.FillProperty, "ColorBrush2", 90));
         aniList.AddRange(new[]
         {
-            Animations.AaColor(MainChrome, MyDropShadow.ColorProperty, "ColorObject4", 90),
-            Animations.AaOpacity(MainChrome, DropShadowHoverOpacity - MainChrome.Opacity, 90)
+            Animations.AaOpacity(MainChrome, DropShadowHoverOpacity - MainChrome.Opacity, 180)
         });
         if (!IsAnimating)
             Animations.AniStart(aniList, "MyCard Mouse " + uuid);
@@ -245,8 +245,7 @@ public class MyCard : AnimatedBackgroundGrid
             aniList.Add(Animations.AaColor(MainSwap, Shape.FillProperty, "ColorBrush1", 90));
         aniList.AddRange(new[]
         {
-            Animations.AaColor(MainChrome, MyDropShadow.ColorProperty, "ColorObject1", 90),
-            Animations.AaOpacity(MainChrome, DropShadowIdleOpacity - MainChrome.Opacity, 90)
+            Animations.AaOpacity(MainChrome, DropShadowIdleOpacity - MainChrome.Opacity, 220)
         });
         if (!IsAnimating)
             Animations.AniStart(aniList, "MyCard Mouse " + uuid);

@@ -13,18 +13,21 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="20" />
+            <RowDefinition Height="24" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="24" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="14" />
         </Grid.ColumnDefinitions>
         <Grid.RenderTransform>
             <ScaleTransform />
         </Grid.RenderTransform>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="5" Margin="24,26,24,0"
+                   Text="{loc:Loc Stellovis.Sidebar.Title}" FontSize="12" FontWeight="SemiBold"
+                   Foreground="{DynamicResource StellovisMutedTextBrush}" />
         <local:MyButton Grid.Row="3" Grid.Column="2" x:Name="BtnInstance" Height="35" Margin="0,10,10,0" Text="{loc:Loc Launch.Home.SelectInstance}"
                         IsEnabled="{Binding IsInstanceButtonEnabled}" Visibility="{Binding InstanceButtonVisibility}"
                         Command="{Binding SelectInstanceCommand}" />
@@ -39,12 +42,22 @@
                     <TranslateTransform x:Name="AprilPosTrans" />
                 </TransformGroup>
             </Grid.RenderTransform>
-            <local:MyButton x:Name="BtnLaunch" Height="54" Margin="20,0" Text="{Binding LaunchButtonText}" ColorType="Highlight"
+            <local:MyButton x:Name="BtnLaunch" Height="70" Margin="24,0" Text="{Binding LaunchButtonText}" ColorType="Highlight"
                             Click="BtnLaunch_Click" Loaded="BtnLaunch_Loaded"
                             Padding="30,0,30,15" IsEnabled="{Binding IsLaunchButtonEnabled, Mode=TwoWay}" />
-            <TextBlock x:Name="LabVersion" Text="{Binding VersionNameText}" Margin="35,0,35,10" IsHitTestVisible="False"
+            <TextBlock x:Name="LabVersion" Text="{Binding VersionNameText}" Margin="40,0,40,13" IsHitTestVisible="False"
                        VerticalAlignment="Bottom" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"
-                       FontSize="11" Foreground="{DynamicResource ColorBrushGray3}" RenderTransformOrigin="0.5,-0.2">
+                       FontSize="11" Opacity="0.86" RenderTransformOrigin="0.5,-0.2">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource BasedOnTextBlock}">
+                        <Setter Property="Foreground" Value="{DynamicResource StellovisOnAccentBrush}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEnabled, ElementName=BtnLaunch}" Value="False">
+                                <Setter Property="Foreground" Value="{DynamicResource StellovisMutedTextBrush}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
                 <TextBlock.RenderTransform>
                     <ScaleTransform ScaleX="{Binding RealRenderTransform.ScaleX, ElementName=BtnLaunch, Mode=OneWay}"
                                     ScaleY="{Binding RealRenderTransform.ScaleY, ElementName=BtnLaunch, Mode=OneWay}" />

@@ -183,7 +183,7 @@ public static partial class GameLaunch
                 LauncherCommon.ShortenPath($"{GameFolders.mcFolderSelected}libraries")
             },
             {
-                "${launcher_name}", "PCLCE"
+                "${launcher_name}", "StellovisMC"
             },
             {
                 "${launcher_version}", LauncherCommon.VersionCode.ToString()

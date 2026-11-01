@@ -71,7 +71,7 @@ public partial class PageToolsTest : IPageView
         TextDownloadFolder.Validate();
 
         if (!string.IsNullOrEmpty(TextDownloadFolder.ValidateResult) || string.IsNullOrEmpty(TextDownloadFolder.Text))
-            TextDownloadFolder.Text = Common.ExePath + @"PCL\MyDownload\";
+            TextDownloadFolder.Text = Common.DataPath + @"MyDownload\";
 
         TextDownloadFolder.Validate();
         TextDownloadName.Validate();

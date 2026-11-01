@@ -175,6 +175,8 @@ public static partial class Common
         out XamlEventSanitizer.SanitizeResult sanitizeResult)
     {
         str = str
+            .Replace("assembly=Plain Craft Launcher 2", "assembly=StellovisMC")
+            .Replace("/Plain Craft Launcher 2;component/", "/StellovisMC;component/")
             .Replace("EventType=\"", "local:CustomEventService.EventType=\"")
             .Replace("EventData=\"", "local:CustomEventService.EventData=\"")
             .Replace("Property=\"EventType\"", "Property=\"local:CustomEventService.EventType\"")

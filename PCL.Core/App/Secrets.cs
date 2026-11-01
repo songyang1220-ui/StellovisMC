@@ -9,7 +9,9 @@ public static class Secrets
     /// <summary>
     /// 微软 OAuth 的 Client ID
     /// </summary>
-    public static string MSOAuthClientId { get; } = EnvironmentInterop.GetSecret("MS_CLIENT_ID", readEnvDebugOnly: true).ReplaceNullOrEmpty();
+    // StellovisMC's public app registration also supports local Release builds.
+    public static string MSOAuthClientId { get; } = EnvironmentInterop.GetSecret("MS_CLIENT_ID", readEnvDebugOnly: true)
+        .ReplaceNullOrEmpty("415dda5e-8275-43a0-935c-f0347c3eb2d6");
 
     /// <summary>
     /// CurseForge API 的 Client ID

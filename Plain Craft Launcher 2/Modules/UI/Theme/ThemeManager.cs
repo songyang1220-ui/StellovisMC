@@ -23,11 +23,52 @@ public static class ThemeManager
 
     public static void ThemeRefresh(int newTheme = -1)
     {
+        ApplyStellovisPalette();
         colorGray1 = new Common.MyColor(AppResources["ColorObjectGray1"]);
         colorGray4 = new Common.MyColor(AppResources["ColorObjectGray4"]);
         colorGray5 = new Common.MyColor(AppResources["ColorObjectGray5"]);
         colorSemiTransparent = new Common.MyColor(AppResources["ColorBrushSemiTransparent"]);
         ThemeRefreshMain();
+    }
+
+    private static void ApplyStellovisPalette()
+    {
+        var colors = new (string Key, string Light, string Dark)[]
+        {
+            ("Canvas", "#F0F3F8", "#101722"),
+            ("Surface", "#F7FFFFFF", "#E61B2533"),
+            ("SurfaceHover", "#F2F6FC", "#253448"),
+            ("SurfaceMuted", "#E9EFF6", "#17212E"),
+            ("Border", "#DCE4EE", "#2B3A4D"),
+            ("Text", "#263548", "#E7EEF8"),
+            ("MutedText", "#66778C", "#9BADBF"),
+            ("Accent", "#3D6AA0", "#426D9F"),
+            ("AccentHover", "#345D8D", "#4A75A3"),
+            ("NavigationText", "#305F99", "#BEDBFF"),
+            ("OnAccent", "#FFFFFF", "#FFFFFF"),
+            ("Header", "#263E5B", "#172434"),
+            ("Sidebar", "#8CF4F8FF", "#12D5E7FF"),
+            ("Hero", "#ECE5EDF7", "#D0203249"),
+            ("HeroText", "#243F60", "#E7EEF9"),
+            ("HeroSubtext", "#47627F", "#C5D4E6")
+        };
+        foreach (var (key, light, dark) in colors)
+        {
+            var brush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(IsDarkMode ? dark : light));
+            brush.Freeze();
+            AppResources[$"Stellovis{key}Brush"] = brush;
+        }
+
+        foreach (var (key, source) in new[]
+        {
+            ("1", "Text"), ("Gray1", "Text"), ("Gray2", "MutedText"),
+            ("Background", "Canvas"), ("TransparentBackground", "Surface")
+        })
+        {
+            var brush = (SolidColorBrush)AppResources[$"Stellovis{source}Brush"];
+            AppResources[$"ColorBrush{key}"] = brush;
+            AppResources[$"ColorObject{key}"] = brush.Color;
+        }
     }
 
     public static void ThemeRefreshMain()
@@ -43,6 +84,8 @@ public static class ThemeManager
     // 主页面背景
     private static void RefreshBackground()
     {
+        Launcher.frmMain.Starfield.IsDarkMode = IsDarkMode;
+        Launcher.frmMain.Starfield.IsEnabled = Config.Preference.Background.BackgroundColorful;
         if (Config.Preference.Background.BackgroundColorful)
         {
             var brush = new LinearGradientBrush
@@ -51,26 +94,8 @@ public static class ThemeManager
                 StartPoint = new Point(0.9, 0)
             };
 
-            var hue = ThemeService.GetCurrentThemeArgs().Hue;
-            var hue1 = hue - 15;
-            var hue2 = hue + 15;
-            var tone = ThemeService.CurrentTone;
-            var darkLight = IsDarkMode ? 0.2d : 1d;
-            brush.GradientStops.Add(new GradientStop
-            {
-                Offset = -0.1d,
-                Color = LabColor.FromLch(0.84d * darkLight, tone.C5, hue1).ToWpfColor()
-            });
-            brush.GradientStops.Add(new GradientStop
-            {
-                Offset = 0.4d,
-                Color = LabColor.FromLch(0.96d * darkLight, tone.C7, hue).ToWpfColor()
-            });
-            brush.GradientStops.Add(new GradientStop
-            {
-                Offset = 1.1d,
-                Color = LabColor.FromLch(0.84d * darkLight, tone.C5, hue2).ToWpfColor()
-            });
+            brush.GradientStops.Add(new GradientStop(((SolidColorBrush)AppResources["StellovisCanvasBrush"]).Color, 0));
+            brush.GradientStops.Add(new GradientStop(((SolidColorBrush)AppResources["StellovisHeroBrush"]).Color, 1));
             Launcher.frmMain.PanForm.Background = brush;
         }
         else

@@ -59,7 +59,7 @@
                         Margin="3"
                         IsHitTestVisible="{Binding ViewModel.IsLogoClickEnabled, RelativeSource={RelativeSource AncestorType=local:PageSetupAbout}}"
                         MouseLeftButtonDown="ImgPCLLogo_Click"
-                        Source="/Plain Craft Launcher 2;component/Images/Heads/Logo-CE.png">
+                        Source="/StellovisMC;component/Images/icon.png">
                         <Image.Clip>
                             <EllipseGeometry
                                 Center="17 17"
@@ -70,7 +70,7 @@
                     <Image
                         Grid.Row="0"
                         Margin="3"
-                        Source="/Plain Craft Launcher 2;component/Images/Heads/LTCat.jpg">
+                        Source="/StellovisMC;component/Images/Heads/LTCat.jpg">
                         <Image.Clip>
                             <EllipseGeometry
                                 Center="17 17"
@@ -82,7 +82,7 @@
                         x:Name="ImgPCLCommunity"
                         Grid.Row="1"  MouseLeftButtonDown="ImgPCLCommunity_Click"
                         Margin="3"
-                        Source="/Plain Craft Launcher 2;component/Images/Heads/PCL-Community.png" />
+                        Source="/StellovisMC;component/Images/Heads/PCL-Community.png" />
                     <local:MyButton
                         Grid.Row="0"
                         Grid.Column="2"
@@ -219,7 +219,7 @@
                     <Image
                         Grid.Row="0"
                         Margin="3"
-                        Source="/Plain Craft Launcher 2;component/Images/Heads/bangbang93.png">
+                        Source="/StellovisMC;component/Images/Heads/bangbang93.png">
                         <Image.Clip>
                             <EllipseGeometry
                                 Center="17 17"
@@ -232,7 +232,7 @@
                         Grid.Row="1"
                         Margin="3"
                         Visibility="{Binding ViewModel.ShowMcmod, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource AncestorType=local:PageSetupAbout}}"
-                        Source="/Plain Craft Launcher 2;component/Images/Heads/wiki.png">
+                        Source="/StellovisMC;component/Images/Heads/wiki.png">
                         <Image.Clip>
                             <EllipseGeometry
                                 Center="17 17"
@@ -243,7 +243,7 @@
                     <Image
                         Grid.Row="2"
                         Margin="3"
-                        Source="/Plain Craft Launcher 2;component/Images/Heads/Pysio.jpg">
+                        Source="/StellovisMC;component/Images/Heads/Pysio.jpg">
                         <Image.Clip>
                             <EllipseGeometry
                                 Center="17 17"
@@ -254,7 +254,7 @@
                     <Image
                         Grid.Row="3"
                         Margin="3"
-                        Source="/Plain Craft Launcher 2;component/Images/Heads/Yunmoan.jpg">
+                        Source="/StellovisMC;component/Images/Heads/Yunmoan.jpg">
                         <Image.Clip>
                             <EllipseGeometry
                                 Center="17 17"
@@ -265,7 +265,7 @@
                     <Image
                         Grid.Row="4"
                         Margin="3"
-                        Source="/Plain Craft Launcher 2;component/Images/Heads/EasyTier.png">
+                        Source="/StellovisMC;component/Images/Heads/EasyTier.png">
                         <Image.Clip>
                             <EllipseGeometry
                                 Center="17 17"
@@ -276,7 +276,7 @@
                     <Image
                         Grid.Row="5"
                         Margin="3"
-                        Source="/Plain Craft Launcher 2;component/Images/Heads/z0z0r4.png">
+                        Source="/StellovisMC;component/Images/Heads/z0z0r4.png">
                         <Image.Clip>
                             <EllipseGeometry
                                 Center="17 17"
@@ -287,7 +287,7 @@
                     <Image
                         Grid.Row="6"
                         Margin="3"
-                        Source="/Plain Craft Launcher 2;component/Images/Heads/Emperormummy.png">
+                        Source="/StellovisMC;component/Images/Heads/Emperormummy.png">
                         <Image.Clip>
                             <EllipseGeometry
                                 Center="17 17"

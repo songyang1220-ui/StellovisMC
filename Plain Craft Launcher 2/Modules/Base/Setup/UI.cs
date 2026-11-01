@@ -250,8 +250,7 @@ public partial class Setup
             main.LabTitleLogo.Visibility = ToVisibility(value == 2);
             main.ImageTitleLogo.Visibility = ToVisibility(value == 3);
 
-            if (value != 4)
-                main.CELogo.Visibility = ToVisibility(value != 0);
+            main.CELogo.Visibility = Visibility.Collapsed;
 
             if (ui is not null)
             {
@@ -270,7 +269,7 @@ public partial class Setup
                     try
                     {
                         main.ImageTitleLogo.Source =
-                            Common.ExePath + @"PCL\Logo.png";
+                            Common.DataPath + @"Logo.png";
                     }
                     catch (Exception ex)
                     {

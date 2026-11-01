@@ -4,19 +4,34 @@
         FocusVisualStyle="{x:Null}" x:Name="PanBack"
         Focusable="True" UseLayoutRounding="True" SnapsToDevicePixels="False"
         Background="{StaticResource ColorBrushSemiTransparent}">
-    <Border CornerRadius="3" x:Name="PanFore" BorderThickness="1" BorderBrush="{DynamicResource ColorBrush1}"
-            RenderTransformOrigin="0.5,0.5" Background="{DynamicResource ColorBrushHalfWhite}">
+    <Grid>
+    <Border CornerRadius="10" x:Name="PanFore" BorderThickness="1" BorderBrush="{DynamicResource StellovisBorderBrush}"
+            RenderTransformOrigin="0.5,0.5" Background="{DynamicResource StellovisSurfaceBrush}">
         <Border.RenderTransform>
             <ScaleTransform />
         </Border.RenderTransform>
         <TextBlock TextOptions.TextFormattingMode="Display" SnapsToDevicePixels="True" TextTrimming="None"
                    HorizontalAlignment="Center" x:Name="LabText" VerticalAlignment="Center"
                    RenderTransformOrigin="0.5,0.5"
-                   Foreground="{Binding Parent.BorderBrush, RelativeSource={RelativeSource Self}}" FontSize="13"
+                   Foreground="{DynamicResource StellovisTextBrush}" FontSize="13" FontWeight="SemiBold"
                    IsHitTestVisible="False">
             <TextBlock.RenderTransform>
                 <ScaleTransform />
             </TextBlock.RenderTransform>
         </TextBlock>
     </Border>
+    <Border CornerRadius="12" BorderThickness="2" Margin="-3" IsHitTestVisible="False"
+            BorderBrush="{DynamicResource StellovisAccentBrush}">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="Opacity" Value="0" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsKeyboardFocused, ElementName=PanBack}" Value="True">
+                        <Setter Property="Opacity" Value="1" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+    </Border>
+    </Grid>
 </Border>

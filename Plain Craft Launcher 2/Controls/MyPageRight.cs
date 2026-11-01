@@ -607,14 +607,12 @@ public class MyPageRight : AdornerDecorator
                 else
                 {
                     Control.Opacity = 0d;
-                    Control.RenderTransform = new TranslateTransform(0d, -16);
-                    aniList.Add(Animations.AaOpacity(Control, 1d, 100, delay,
+                    Control.RenderTransform = new TranslateTransform(0d, 14);
+                    aniList.Add(Animations.AaOpacity(Control, 1d, 180, delay,
                         new Animations.AniEaseOutFluent(Animations.AniEasePower.Weak)));
-                    aniList.Add(Animations.AaTranslateY(Control, 5d, 250, delay,
-                        new Animations.AniEaseOutFluent()));
-                    aniList.Add(Animations.AaTranslateY(Control, 11d, 350, delay,
-                        new Animations.AniEaseOutBack()));
-                    delay += 25;
+                    aniList.Add(Animations.AaTranslateY(Control, -14d, 280, delay,
+                        new Animations.AniEaseOutFluent(Animations.AniEasePower.Strong)));
+                    delay = Math.Min(delay + 24, 96);
                 }
         }
 
@@ -623,9 +621,9 @@ public class MyPageRight : AdornerDecorator
         if (scroll is not null)
         {
             if (scroll.RenderTransform is not TranslateTransform)
-                scroll.RenderTransform = new TranslateTransform(10d, 0d);
+                scroll.RenderTransform = new TranslateTransform(4d, 0d);
             aniList.Add(Animations.AaTranslateX(scroll,
-                -((TranslateTransform)scroll.RenderTransform).X, 350, 0,
+                -((TranslateTransform)scroll.RenderTransform).X, 240, 0,
                 new Animations.AniEaseOutFluent()));
         }
 
@@ -649,9 +647,10 @@ public class MyPageRight : AdornerDecorator
             else
             {
                 Control.IsHitTestVisible = false;
-                aniList.Add(Animations.AaOpacity(Control, -1, 70, delay));
-                aniList.Add(Animations.AaTranslateY(Control, -6, 70, delay));
-                delay += 15;
+                aniList.Add(Animations.AaOpacity(Control, -Control.Opacity, 110, delay));
+                aniList.Add(Animations.AaTranslateY(Control, -4, 110, delay,
+                    new Animations.AniEaseInFluent(Animations.AniEasePower.Weak)));
+                delay = Math.Min(delay + 10, 40);
             }
 
         // 滚动条动画
@@ -661,7 +660,7 @@ public class MyPageRight : AdornerDecorator
             if (scroll.RenderTransform is not TranslateTransform)
                 scroll.RenderTransform = new TranslateTransform();
             aniList.Add(Animations.AaTranslateX(scroll,
-                10d - ((TranslateTransform)scroll.RenderTransform).X, 90, 0,
+                4d - ((TranslateTransform)scroll.RenderTransform).X, 110, 0,
                 new Animations.AniEaseInFluent()));
         }
 

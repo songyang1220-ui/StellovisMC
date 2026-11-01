@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using PCL.Core.App;
@@ -36,36 +37,25 @@ public partial class PageLaunchRight : IRefreshable
         PanBack.ScrollToHome();
         PanScroll = PanBack; // 不知道为啥不能在 XAML 设置
         PanLog.Visibility = Common.modeDebug ? Visibility.Visible : Visibility.Collapsed;
-        // 社区版提示
-        PanHint.Visibility = States.Hint.CEMessage
-            ? Visibility.Visible
-            : Visibility.Collapsed;
-        LabHint1.TrySetLocalizedValue("Text", "Launch.Right.CommunityHint.Message");
-        LabHint2.TrySetLocalizedValue("Text", "Launch.Right.CommunityHint.HidePrompt");
+        PanWelcome.Visibility = (int)Config.Preference.Homepage.Type == 0 ? Visibility.Visible : Visibility.Collapsed;
         _EnsureHomepageLiveWatcher();
     }
 
-    // 暂时关闭快照版提示
-    private void BtnHintClose_Click(object sender, EventArgs e)
+    private void WelcomeAction_Click(object sender, MouseButtonEventArgs e)
     {
-        var input = (DialogService.Instance.Show(new InputDialogRequest
-        {
-            Title = Lang.Text("Launch.Right.CommunityHint.InputTitle"),
-            Buttons = DialogButtons.OkCancel,
-            HighLight = false,
-            ForceWait = true
-        }).Result?.InputText ?? "");
-        if (string.IsNullOrWhiteSpace(input))
+        if (sender is not MyButton button)
             return;
-        input = new string(input.Where(char.IsAsciiLetter).ToArray()).ToLower();
-        if (input.Contains("pclcommunity"))
+        switch (button.Tag)
         {
-            Animations.AniDispose(PanHint, true);
-            States.Hint.CEMessage = false;
-        }
-        else
-        {
-            HintService.Show(Hints.Info(Lang.Text("Launch.Right.CommunityHint.WrongInput")));
+            case "Instances":
+                Launcher.frmMain.PageChange(FormMain.PageType.InstanceSelect);
+                break;
+            case "Download":
+                Launcher.frmMain.PageChange(FormMain.PageType.Download, FormMain.PageSubType.DownloadInstall);
+                break;
+            case "Settings":
+                Launcher.frmMain.PageChange(FormMain.PageType.Setup);
+                break;
         }
     }
 
@@ -104,12 +94,13 @@ public partial class PageLaunchRight : IRefreshable
         string url = null;
 
         var uiCustomType = (int)Config.Preference.Homepage.Type;
+        Common.RunInUi(() => PanWelcome.Visibility = uiCustomType == 0 ? Visibility.Visible : Visibility.Collapsed);
 
         if (uiCustomType == 1)
         {
             // 本地文件
             LogWrapper.Info("[Page] 主页自定义数据来源：本地文件");
-            content = Common.ReadFile(Path.Combine(Common.ExePath, "PCL", "Custom.xaml"));
+            content = Common.ReadFile(Path.Combine(PCL.Core.App.Paths.Data, "Custom.xaml"));
         }
         else if (uiCustomType == 2)
         {
@@ -299,7 +290,7 @@ public partial class PageLaunchRight : IRefreshable
         string[]? lines = null;
 
         // 外部文件
-        var externalPath = Path.Combine(Common.ExePath, "PCL", "hints.txt");
+        var externalPath = Path.Combine(PCL.Core.App.Paths.Data, "hints.txt");
         if (File.Exists(externalPath))
         {
             try
@@ -346,7 +337,7 @@ public partial class PageLaunchRight : IRefreshable
         try
         {
             var uri = new Uri(
-                $"pack://application:,,,/Plain Craft Launcher 2;component/Resources/hints/{langCode}.txt",
+                $"pack://application:,,,/StellovisMC;component/Resources/hints/{langCode}.txt",
                 UriKind.Absolute);
             using var stream = Application.GetResourceStream(uri)?.Stream;
             if (stream is null) return null;
@@ -507,7 +498,7 @@ public partial class PageLaunchRight : IRefreshable
                     content = content.RegexReplace("xmlns[^\"']*(\"|')[^\"']*(\"|')", "")
                         .Replace("xmlns", "");
                 content =
-                    $"<StackPanel xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:sys=\"clr-namespace:System;assembly=System.Runtime\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" xmlns:local=\"clr-namespace:PCL;assembly=Plain Craft Launcher 2\">{content}</StackPanel>";
+                    $"<StackPanel xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:sys=\"clr-namespace:System;assembly=System.Runtime\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" xmlns:local=\"clr-namespace:PCL;assembly=StellovisMC\">{content}</StackPanel>";
                 Common.Log($"[Page] 实例化：加载主页 UI 开始，最终内容长度：{content.Count()}");
                 PanCustom.Children.Add(
                     (UIElement)Common.GetObjectFromXml(content, out var sanitizeResult));
@@ -717,7 +708,7 @@ public partial class PageLaunchRight : IRefreshable
 
     private static string _GetHomepageLiveDirectory()
     {
-        return Path.Combine(Common.ExePath, "PCL");
+        return PCL.Core.App.Paths.Data;
     }
 
     private static void _WriteHomepageLiveSupportMarker(string directory)
@@ -906,7 +897,7 @@ public partial class PageLaunchRight : IRefreshable
                 .Replace("xmlns", "");
 
         var wrapped =
-            $"<StackPanel xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:sys=\"clr-namespace:System;assembly=System.Runtime\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" xmlns:local=\"clr-namespace:PCL;assembly=Plain Craft Launcher 2\">{content}</StackPanel>";
+            $"<StackPanel xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:sys=\"clr-namespace:System;assembly=System.Runtime\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" xmlns:local=\"clr-namespace:PCL;assembly=StellovisMC\">{content}</StackPanel>";
 
         if (Common.GetObjectFromXml(wrapped) is not Panel parsedPanel) return;
 

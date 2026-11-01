@@ -31,10 +31,6 @@ public static partial class GameLaunch
         _ValidateLaunchPath();
         _ValidateLaunchInstance();
 
-#if BETA
-        _ShowDonateHint();
-#endif
-
 #if DEBUG || DEBUGCI
         return;
 #endif
@@ -148,60 +144,6 @@ public static partial class GameLaunch
             _ => checkResult
         };
     }
-
-#if BETA
-    private static readonly HashSet<int> DonateHintLaunchCounts =
-    [
-        10,
-        20,
-        40,
-        60,
-        80,
-        100,
-        120,
-        150,
-        200,
-        250,
-        300,
-        350,
-        400,
-        500,
-        600,
-        700,
-        800,
-        900,
-        1000,
-        1200,
-        1400,
-        1600,
-        1800,
-        2000,
-    ];
-
-    private static void _ShowDonateHint()
-    {
-        if (currentLaunchOptions?.SaveBatch is not null)
-            return;
-
-        LauncherCommon.RunInNewThread(
-            () =>
-            {
-                if (!DonateHintLaunchCounts.Contains(States.System.LaunchCount))
-                    return;
-
-                if (LaunchUi.ShowMessageBox(
-                        Lang.Text("Minecraft.Launch.Donate.Message", States.System.LaunchCount),
-                        Lang.Text("Minecraft.Launch.Donate.Title", States.System.LaunchCount),
-                        Lang.Text("Minecraft.Launch.Donate.Support"),
-                        Lang.Text("Minecraft.Launch.Donate.Decline")
-                    ) == 1)
-                {
-                    LauncherUi.Interaction?.OpenWebsite("https://afdian.com/a/LTCat");
-                }
-            },
-            "Donate");
-    }
-#endif
 
     private static void _ShowPurchaseHint()
     {

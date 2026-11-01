@@ -18,17 +18,17 @@
         Style="{StaticResource MyWindow}"
         AllowDrop="True"
         Topmost="True"
-        Title="Plain Craft Launcher Community Edition "
-        MinHeight="470"
-        MinWidth="810"
+        Title="StellovisMC"
+        MinHeight="600"
+        MinWidth="960"
         ScrollViewer.VerticalScrollBarVisibility="Disabled"
-        Icon="/Plain Craft Launcher 2;component/Images/icon.ico"
+        Icon="/StellovisMC;component/Images/icon.ico"
         ResizeMode="CanResize"
         Background="{x:Null}"
         d:DesignWidth="870"
         d:DesignHeight="520"
-        Width="850"
-        Height="500"
+        Width="1100"
+        Height="700"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         AllowsTransparency="False"
@@ -49,10 +49,10 @@
         <Grid.RenderTransform>
             <TransformGroup>
                 <RotateTransform x:Name="TransformRotate"
-                                 Angle="-4" />
+                                 Angle="0" />
                 <TranslateTransform x:Name="TransformPos"
                                     X="0"
-                                    Y="60" />
+                                    Y="12" />
             </TransformGroup>
         </Grid.RenderTransform>
         <Rectangle Stroke="{x:Null}"
@@ -204,11 +204,14 @@
             </Rectangle.Fill>
         </Rectangle>
         <Border x:Name="PanBack"
+                BorderBrush="{DynamicResource StellovisBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="16"
                 Margin="10">
             <Border.Clip>
                 <RectangleGeometry x:Name="RectForm"
-                                   RadiusX="6"
-                                   RadiusY="6" />
+                                   RadiusX="16"
+                                   RadiusY="16" />
             </Border.Clip>
             <Grid x:Name="PanForm"
                   SnapsToDevicePixels="False"
@@ -217,6 +220,20 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
+                <local:StarfieldBackground x:Name="Starfield" Grid.Row="1">
+                    <local:StarfieldBackground.Style>
+                        <Style TargetType="local:StarfieldBackground">
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </Trigger>
+                                <DataTrigger Binding="{Binding Visibility, ElementName=ImgBack}" Value="Visible">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </local:StarfieldBackground.Style>
+                </local:StarfieldBackground>
                 <Canvas x:Name="ImgBack"
                         IsHitTestVisible="False"
                         Grid.Row="1"
@@ -232,10 +249,10 @@
                 </Canvas>
                 <local:AnimatedBackgroundGrid Grid.Row="0"
                                               x:Name="PanTitle"
-                                              Height="48"
+                                              Height="68"
                                               MouseLeftButtonDown="FormDragMove"
                                               WindowChrome.IsHitTestVisibleInChrome="True"
-                                              BackgroundBrush="{DynamicResource ColorBrush3}">
+                                              BackgroundBrush="{DynamicResource StellovisHeaderBrush}">
                     <!-- <Grid.Background> -->
                     <!--     <LinearGradientBrush EndPoint="1,0" StartPoint="0,0"> -->
                     <!--         <GradientStop Color="{StaticResource ColorObject4}" Offset="0"/> -->
@@ -289,18 +306,24 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <Path Grid.Column="0"
+                            <Image Grid.Column="0" Source="/StellovisMC;component/Images/icon.png"
+                                   Width="30" Height="30" Margin="20,0,0,0"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   IsHitTestVisible="False"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Visibility="{Binding Visibility, ElementName=ShapeTitleLogo}" />
+                            <TextBlock Grid.Column="0"
                                   x:Name="ShapeTitleLogo"
-                                  Data="M26,29 v-25 h6 a7,7 180 0 1 0,14 h-6 M62.5,6.5 a10,11.5 180 1 0 0,18 M71,2.5 v24.5 h13.5"
+                                  Text="StellovisMC"
                                   SnapsToDevicePixels="False"
                                   UseLayoutRounding="False"
                                   IsHitTestVisible="False"
                                   HorizontalAlignment="Left"
-                                  Margin="19,15.5,0,15.5"
-                                  Stretch="fill"
-                                  Stroke="White"
-                                  StrokeThickness="2.2"
-                                  Width="39" />
+                                  Margin="60,0,0,0"
+                                  VerticalAlignment="Center"
+                                  Foreground="White"
+                                  FontSize="17"
+                                  FontWeight="SemiBold" />
                             <Path Grid.Column="0"
                                   x:Name="ShapeHMCLTitleLogo"
                                   Data="M 60.375 53.406 L 53.625 53.406 L 53.625 0.906 L 63.6 0.906 L 78.15 34.131 L 92.475 0.906 L 102.675 0.906 L 102.675 53.406 L 95.55 53.406 L 95.55 9.981 L 81.525 41.556 L 74.475 41.556 L 60.375 9.981 L 60.375 53.406 Z M 7.125 53.406 L 0 53.406 L 0 0.906 L 7.125 0.906 L 7.125 23.331 L 33 23.331 L 33 0.906 L 40.125 0.906 L 40.125 53.406 L 33 53.406 L 33 29.481 L 7.125 29.481 L 7.125 53.406 Z M 149.85 2.706 L 147.675 8.706 Q 145.35 7.581 142.913 6.906 Q 140.475 6.231 137.175 6.231 Q 132.375 6.231 128.588 8.706 Q 124.8 11.181 122.625 15.831 A 25.755 25.755 0 0 0 120.458 26.263 A 38.963 38.963 0 0 0 120.45 27.081 Q 120.45 33.381 122.588 38.106 Q 124.725 42.831 128.512 45.456 Q 132.3 48.081 137.175 48.081 Q 140.85 48.081 143.55 47.181 Q 146.25 46.281 148.8 44.856 L 150.975 50.781 Q 148.2 52.281 144.638 53.293 Q 141.075 54.306 136.35 54.306 Q 129.525 54.306 124.275 51.043 Q 119.025 47.781 116.1 41.743 A 31.603 31.603 0 0 1 113.201 28.922 A 45.601 45.601 0 0 1 113.175 27.381 Q 113.175 19.356 116.138 13.168 Q 119.1 6.981 124.538 3.493 Q 129.975 0.006 137.25 0.006 Q 141 0.006 144.075 0.718 Q 147.15 1.431 149.85 2.706 Z M 191.925 53.406 L 160.725 53.406 L 160.725 0.906 L 167.85 0.906 L 167.85 47.031 L 191.925 47.031 L 191.925 53.406 Z"
@@ -336,6 +359,7 @@
                                            VerticalAlignment="Center"
                                            Visibility="Collapsed" />
                             <Border x:Name="CELogo"
+                                    Visibility="Collapsed"
                                     Grid.Column="1"
                                     SnapsToDevicePixels="False"
                                     UseLayoutRounding="False"
@@ -353,11 +377,11 @@
                         <StackPanel Grid.Column="1"
                                     x:Name="PanTitleSelect"
                                     HorizontalAlignment="Left"
-                                    Height="27"
+                                    Height="38"
                                     VerticalAlignment="Center"
                                     Orientation="Horizontal"
                                     Margin="13,0">
-                            <local:MyRadioButton x:Name="BtnTitleSelect0"
+                            <local:MyRadioButton x:Name="BtnTitleSelect0" MinHeight="35" MaxHeight="35"
                                                  Text="{loc:Loc Main.Tab.Launch}"
                                                  Tag="0"
                                                  Margin="5,0"
@@ -366,7 +390,7 @@
                                                  Check="BtnTitleSelect_Click"
                                                  LogoScale="0.9"
                                                  SvgIcon="lucide/play" />
-                            <local:MyRadioButton x:Name="BtnTitleSelect1"
+                            <local:MyRadioButton x:Name="BtnTitleSelect1" MinHeight="35" MaxHeight="35"
                                                  Text="{loc:Loc Main.Tab.Download}"
                                                  Tag="1"
                                                  Margin="5,0"
@@ -374,7 +398,7 @@
                                                  Check="BtnTitleSelect_Click"
                                                  LogoScale="0.9"
                                                  SvgIcon="lucide/download" />
-                            <local:MyRadioButton x:Name="BtnTitleSelect2"
+                            <local:MyRadioButton x:Name="BtnTitleSelect2" MinHeight="35" MaxHeight="35"
                                                  Text="{loc:Loc Main.Tab.Settings}"
                                                  Tag="2"
                                                  Margin="5,0"
@@ -382,7 +406,7 @@
                                                  Check="BtnTitleSelect_Click"
                                                  LogoScale="1.1"
                                                  SvgIcon="lucide/settings" />
-                            <local:MyRadioButton x:Name="BtnTitleSelect3"
+                            <local:MyRadioButton x:Name="BtnTitleSelect3" MinHeight="35" MaxHeight="35"
                                                  Text="{loc:Loc Main.Tab.Tools}"
                                                  Tag="3"
                                                  Margin="5,0"
@@ -425,23 +449,34 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
-                    <controls:BlurBorder IsHitTestVisible="False">
+                    <controls:BlurBorder IsHitTestVisible="False" BlurRadius="6" BlurSamplingRate="1"
+                                         ClipToBounds="True">
                         <local:AnimatedBackgroundGrid x:Name="RectLeftBackground"
                                                       Width="0"
-                                                      BackgroundBrush="{DynamicResource ColorBrushTransparentBackground}" />
+                                                      BackgroundBrush="{DynamicResource StellovisSidebarBrush}">
+                            <Border BorderThickness="0,1,1,0" BorderBrush="#20FFFFFF">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0.8,1">
+                                        <GradientStop Color="#08FFFFFF" Offset="0" />
+                                        <GradientStop Color="#03FFFFFF" Offset="0.45" />
+                                        <GradientStop Color="#00FFFFFF" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </local:AnimatedBackgroundGrid>
                     </controls:BlurBorder>
                     <Rectangle x:Name="RectLeftShadow"
-                               Width="4"
+                               Width="2"
                                HorizontalAlignment="Left"
                                IsHitTestVisible="False"
                                Grid.Column="1">
                         <Rectangle.Fill>
                             <LinearGradientBrush EndPoint="1,0"
                                                  StartPoint="0,0"
-                                                 Opacity="0.04">
-                                <GradientStop Color="#000000"
+                                                 Opacity="0.12">
+                                <GradientStop Color="#FFFFFF"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="#00FFFFFF"
                                               Offset="1" />
                             </LinearGradientBrush>
                         </Rectangle.Fill>
@@ -460,7 +495,7 @@
                             UseLayoutRounding="True"
                             SnapsToDevicePixels="True">
                         <Border x:Name="PanMainRight"
-                                RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                RenderOptions.BitmapScalingMode="HighQuality"
                                 UseLayoutRounding="True"
                                 SnapsToDevicePixels="False" />
                     </Border>
@@ -469,7 +504,7 @@
                             UseLayoutRounding="True"
                             SnapsToDevicePixels="True">
                         <Border x:Name="PanMainLeft"
-                                RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                RenderOptions.BitmapScalingMode="HighQuality"
                                 SizeChanged="PanMainLeft_SizeChanged"
                                 UseLayoutRounding="True"
                                 SnapsToDevicePixels="False" />
@@ -539,6 +574,8 @@
                                          Visibility="Collapsed"
                                          CanRightClick="True" />
                 </StackPanel>
+                <local:StartupAnimation x:Name="StartupIntro" Grid.RowSpan="2" Panel.ZIndex="1"
+                                        Logo="/StellovisMC;component/Images/icon.png" />
                 <controls:BlurBorder x:Name="PanMsgBackground"
                                      Grid.Row="0"
                                      Grid.RowSpan="2"

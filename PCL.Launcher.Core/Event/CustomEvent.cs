@@ -464,7 +464,7 @@ public class CustomEvent
 
         // 确认路径
         relativeUrl = relativeUrl.Replace('/', Path.DirectorySeparatorChar);
-        var pclDir = Path.Combine(Basics.ExecutableDirectory, "PCL");
+        var pclDir = Paths.Data;
 
         if (Path.IsPathFullyQualified(relativeUrl)) // 绝对路径
         {

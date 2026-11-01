@@ -187,7 +187,7 @@ public static class Basics
         return PlatformServices.ResourceStore?.GetResourceStream(path);
     }
 
-    private const string AssemblyImagePath = "pack://application:,,,/Plain Craft Launcher 2;component/Images/";
+    private const string AssemblyImagePath = "pack://application:,,,/StellovisMC;component/Images/";
     public static string GetAppImagePath(string imageName) => AssemblyImagePath + imageName;
 
     #endregion

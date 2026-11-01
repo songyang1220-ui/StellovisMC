@@ -71,6 +71,7 @@ public partial class FormMain
         ThemeService.ColorThemeChanged += theme => ThemeManager.ThemeRefresh((int)theme);
         // 窗体参数初始化
         Launcher.frmMain = this;
+        ThemeManager.ThemeRefresh();
         Navigation = new NavigationService(this);
         Launcher.frmLaunchLeft = new PageLaunchLeft();
         Launcher.frmLaunchRight = new PageLaunchRight();
@@ -174,10 +175,6 @@ public partial class FormMain
             AddResizer();
         else
             RemoveResizer();
-        // PLC 彩蛋
-        if (RandomUtils.NextInt(1, 1000) == 233)
-            ShapeTitleLogo.Data = (Geometry)new GeometryConverter().ConvertFromString(
-                "M26,29 v-25 h6 a7,7 180 0 1 0,14 h-6 M83,6.5 a10,11.5 180 1 0 0,18 M48,2.5 v24.5 h13.5");
         // 加载窗口
 
         ThemeManager.ThemeRefresh();
@@ -198,8 +195,9 @@ public partial class FormMain
         // MinWidth = 50
         // #End If
         Topmost = false;
-        if (Launcher.frmStart is not null)
-            Launcher.frmStart.Close(new TimeSpan(0, 0, 0, 0, (int)Math.Round(400d / Animations.aniSpeed)));
+        StartupIntro.IsDarkMode = ThemeManager.IsDarkMode;
+        StartupIntro.Start(Config.Preference.ShowStartupLogo && SystemParameters.ClientAreaAnimation
+            && Config.Debug.AnimationSpeed < 30);
         // 更改窗口
         // Top = (GetWPFSize(My.Computer.Screen.WorkingArea.Height) - Height) / 2
         // Left = (GetWPFSize(My.Computer.Screen.WorkingArea.Width) - Width) / 2
@@ -211,10 +209,8 @@ public partial class FormMain
         {
             Animations.AaCode(() => Animations.AniEndControl(), 50),
             Animations.AaOpacity(this, Config.Preference.Theme.WindowOpacity / 1000d + 0.4d - Opacity, 250, 100),
-            Animations.AaDouble(i => TransformPos.Y += (double)i, -TransformPos.Y, 600,
-                100, new Animations.AniEaseOutBack(Animations.AniEasePower.Weak)),
-            Animations.AaDouble(i => TransformRotate.Angle += (double)i,
-                -TransformRotate.Angle, 500, 100, new Animations.AniEaseOutBack(Animations.AniEasePower.Weak)),
+            Animations.AaDouble(i => TransformPos.Y += (double)i, -TransformPos.Y, 360,
+                0, new Animations.AniEaseOutFluent(Animations.AniEasePower.Strong)),
             Animations.AaCode(() =>
             {
                 RenderTransform = null;
@@ -228,41 +224,11 @@ public partial class FormMain
         // Timer 启动
         Animations.AniStart();
         Launcher.TimerMainStart();
-        // 特殊版本提示
+        // 首次使用授权与后台初始化
         Common.RunInNewThread(() =>
         {
-            // 特殊版本提示
             try
             {
-
-
-#if DEBUG || DEBUGCI
-
-                if (Environment.GetEnvironmentVariable("PCL_DISABLE_DEBUG_HINT") is null)
-                {
-
-#if DEBUG
-                    var hint = Lang.Text("Main.SpecialVersion.DebugHint");
-#else
-                    var hint = Lang.Text("Main.SpecialVersion.CiHint");
-#endif
-
-                    DialogService.Instance.Show(new TextDialogRequest
-                    {
-                        Title = Lang.Text("Main.SpecialVersion.Title"),
-                        Content = $"{hint}{"\r\n"}{"\r\n"}{Lang.Text("Main.SpecialVersion.HideHintNotice")}",
-                        Buttons = DialogButtons.From(DialogButton.Create(Lang.Text("Main.SpecialVersion.IUnderstand")), DialogButton.Create(Lang.Text("Main.SpecialVersion.OpenDownloadPageAndExit"), () =>
-                        {
-                            Common.OpenWebsite("https://github.com/PCL-Community/PCL2-CE/releases/latest");
-                            EndProgram(false);
-                        })),
-                        IsWarn = true,
-                        ForceWait = true
-                    });
-                }
-
-
-#endif
                 // EULA 提示
                 if (!States.System.LauncherEula)
                     switch ((DialogService.Instance.Show(new TextDialogRequest
@@ -302,7 +268,6 @@ public partial class FormMain
                 {
                     GameDownload.dlClientListMojangLoader.Start(1); // PCL 会同时根据这里的加载结果决定是否使用官方源进行下载
                     RunCountSub();
-                    UpdateManager.serverLoader.Start(1);
                     Common.RunInNewThread(Launcher.TryClearTaskTemp, "TryClearTaskTemp", ThreadPriority.BelowNormal);
                 }
                 catch (Exception ex)
@@ -361,8 +326,6 @@ public partial class FormMain
         if ((int)Config.Launch.GameWindowMode == 5)
             Config.Launch.GameWindowMode = GameWindowSizeMode.Default;
 
-        // 更新后展示社区版提示
-        UpdateManager.ShowCeAnnounce();
         // 输出更新日志
         if (lastVersionCode <= 0)
             return;
@@ -621,7 +584,7 @@ public partial class FormMain
             if (!isLogShown)
             {
                 Common.FeedbackInfo();
-                Common.Log("请在 https://github.com/PCL-Community/PCL2-CE/issues 提交错误报告，以便于社区解决此问题！（这也有可能是原版 PCL 的问题）");
+                Common.Log("请在 https://github.com/PCL-Community/PCL2-CE/issues 提交错误报告，以便于社区解决此问题！");
                 isLogShown = true;
                 Common.ShellOnly(LogWrapper.CurrentLogger.CurrentLogFiles.Last());
             }
@@ -1070,7 +1033,7 @@ public partial class FormMain
             if (extension == "xaml")
             {
                 Common.Log("[System] 文件后缀为 XAML，作为主页加载");
-                if (File.Exists(Common.ExePath + @"PCL\Custom.xaml"))
+                if (File.Exists(Common.DataPath + @"Custom.xaml"))
                     if ((DialogService.Instance.Show(new TextDialogRequest
                     {
                         Title = Lang.Text("Main.FileDrag.OverwriteTitle"),
@@ -1080,7 +1043,7 @@ public partial class FormMain
                     }).Result?.Button ?? 0) == 2)
                         return;
 
-                Common.CopyFile(filePath, Common.ExePath + @"PCL\Custom.xaml");
+                Common.CopyFile(filePath, Common.DataPath + @"Custom.xaml");
                 Common.RunInUi(() =>
                 {
                     Config.Preference.Homepage.Type = 1;

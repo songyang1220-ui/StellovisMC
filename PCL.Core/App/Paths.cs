@@ -13,6 +13,8 @@ namespace PCL.Core.App;
 /// </summary>
 public static class Paths
 {
+    public const string DataDirectoryName = "StellovisMC";
+
     /// <summary>
     /// The default directory used for relative path combining.
     /// </summary>
@@ -71,7 +73,7 @@ public static class Paths
         const string oldName = ".PCLCE";
 #endif
         // fill paths
-        _data = Path.Combine(DefaultDirectory, "PCL");
+        _data = DataDirectoryMigration.Prepare(DefaultDirectory);
         _sharedData = GetSpecialPath(Special.ApplicationData, name);
         _sharedLocalData = GetSpecialPath(Special.LocalApplicationData, name);
         _temp = Path.Combine(Path.GetTempPath(), name);

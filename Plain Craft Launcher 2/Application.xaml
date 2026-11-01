@@ -12,6 +12,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Markdown.xaml" />
+                <ResourceDictionary Source="/Resources/Stellovis.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <sys:Double x:Key="BlurRadius">0.0</sys:Double>
             <sys:Double x:Key="BlurSamplingRate">0.7</sys:Double>
@@ -27,7 +28,7 @@
             <localization:LocalizationFormatConverter x:Key="LocalizationFormatConverter" />
 
             <!--字体-->
-            <FontFamily x:Key="LaunchFontFamily">Resources/#PCL English, Microsoft YaHei UI, Segoe UI</FontFamily>
+            <FontFamily x:Key="LaunchFontFamily">Segoe UI Variable Text, Microsoft YaHei UI, Segoe UI</FontFamily>
 
             <!-- 颜色表 -->
             <SolidColorBrush x:Key="ColorBrush1">#343d4a</SolidColorBrush>
@@ -163,7 +164,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="Thumb">
                             <Border Background="{DynamicResource ColorBrushSemiTransparent}" SnapsToDevicePixels="True">
-                                <Border Background="{TemplateBinding Foreground}" CornerRadius="3" Margin="2" />
+                                <Border Background="{TemplateBinding Foreground}" CornerRadius="8" Margin="2" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
@@ -307,8 +308,9 @@
 
             <!-- TextBox -->
             <Style TargetType="local:MyTextBox">
+                <Setter Property="CornerRadius" Value="8" />
                 <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="Background" Value="{DynamicResource ColorBrushHalfWhite}" />
+                <Setter Property="Background" Value="{DynamicResource StellovisSurfaceBrush}" />
                 <Setter Property="FontSize" Value="13" />
                 <Setter Property="SelectionBrush" Value="{DynamicResource ColorBrush3}" />
                 <Setter Property="Foreground" Value="{DynamicResource ColorBrush1}" />
@@ -366,7 +368,7 @@
                 <Setter Property="VerticalContentAlignment" Value="Top" />
                 <Setter Property="SelectionBrush" Value="{DynamicResource ColorBrush3}" />
                 <Setter Property="Foreground" Value="{DynamicResource ColorBrush1}" />
-                <Setter Property="Background" Value="{DynamicResource ColorBrushHalfWhite}" />
+                <Setter Property="Background" Value="{DynamicResource StellovisSurfaceBrush}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource ColorBrushBg0}" />
                 <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
@@ -377,7 +379,7 @@
                         <ControlTemplate TargetType="PasswordBox">
                             <Border x:Name="border" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}"
                                     Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="True"
-                                    CornerRadius="3">
+                                    CornerRadius="8">
                                 <local:MyScrollViewer x:Name="PART_ContentHost" Margin="4.5,4.5,0,4.5"
                                                       HorizontalScrollBarVisibility="Hidden"
                                                       RenderOptions.ClearTypeHint="Enabled" SnapsToDevicePixels="True" />
@@ -424,7 +426,7 @@
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="Foreground" Value="{DynamicResource ColorBrushBg0}" />
-                <Setter Property="Background" Value="{DynamicResource ColorBrushHalfWhite}" />
+                <Setter Property="Background" Value="{DynamicResource StellovisSurfaceBrush}" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                 <Setter Property="FontSize" Value="13" />
                 <Setter Property="MaxDropDownHeight" Value="160" />
@@ -432,7 +434,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="ComboBox">
                             <Grid>
-                                <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="3"
+                                <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="8"
                                         BorderThickness="1" BorderBrush="{TemplateBinding Foreground}" />
                                 <ToggleButton Margin="0,0,1.5,0" Foreground="{TemplateBinding Foreground}"
                                               IsTabStop="False" SnapsToDevicePixels="False" Focusable="False"
@@ -448,8 +450,8 @@
                                        IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                        Placement="Bottom" PopupAnimation="Fade">
                                     <Grid x:Name="PanPopup">
-                                        <Border Background="{DynamicResource ColorBrushWhite}" CornerRadius="3" />
-                                        <Border x:Name="dropDownBorder" CornerRadius="3"
+                                        <Border Background="{DynamicResource ColorBrushWhite}" CornerRadius="8" />
+                                        <Border x:Name="dropDownBorder" CornerRadius="8"
                                                 BorderBrush="{TemplateBinding Foreground}" BorderThickness="1"
                                                 Width="{TemplateBinding Width}"
                                                 MaxHeight="{TemplateBinding MaxDropDownHeight}">
@@ -481,7 +483,7 @@
                                 <ControlTemplate TargetType="ComboBox">
                                     <Grid>
                                         <Border x:Name="border" Background="{TemplateBinding Background}"
-                                                CornerRadius="3" BorderThickness="1"
+                                                CornerRadius="8" BorderThickness="1"
                                                 BorderBrush="{TemplateBinding Foreground}" />
                                         <ToggleButton Margin="0,0,1.5,0" Foreground="{TemplateBinding Foreground}"
                                                       IsTabStop="False" SnapsToDevicePixels="False" Focusable="False"
@@ -494,9 +496,9 @@
                                                IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                                Placement="Bottom" PopupAnimation="Fade">
                                             <Grid x:Name="PanPopup">
-                                                <Border Background="{DynamicResource ColorBrushWhite}" CornerRadius="3" />
+                                                <Border Background="{DynamicResource ColorBrushWhite}" CornerRadius="8" />
                                                 <Border x:Name="dropDownBorder" SnapsToDevicePixels="False"
-                                                        CornerRadius="3" BorderBrush="{TemplateBinding Foreground}"
+                                                        CornerRadius="8" BorderBrush="{TemplateBinding Foreground}"
                                                         BorderThickness="1" Width="{TemplateBinding Width}"
                                                         MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                                     <local:MyScrollViewer x:Name="DropDownScrollViewer"
@@ -605,7 +607,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ContextMenu">
-                            <Border BorderBrush="{DynamicResource ColorBrush1}" BorderThickness="1" CornerRadius="3"
+                            <Border BorderBrush="{DynamicResource ColorBrush1}" BorderThickness="1" CornerRadius="8"
                                     Background="{DynamicResource ColorBrushWhite}" Margin="0,0,4,4"
                                     SnapsToDevicePixels="True">
                                 <Border.Effect>

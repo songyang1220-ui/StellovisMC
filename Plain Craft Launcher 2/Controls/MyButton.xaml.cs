@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
@@ -19,8 +20,8 @@ public partial class MyButton
     }
 
     // 自定义事件
-    private const int animationColorIn = 100;
-    private const int animationColorOut = 200;
+    private const int animationColorIn = 160;
+    private const int animationColorOut = 220;
 
     public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string),
         typeof(MyButton), new PropertyMetadata((sender, e) =>
@@ -119,46 +120,48 @@ public partial class MyButton
     {
         return ColorType switch
         {
-            ColorState.Normal => IsMouseOver ? "ColorBrush3" : "ColorBrush1",
-            ColorState.Highlight => IsMouseOver ? "ColorBrush3" : "ColorBrush2",
+            ColorState.Normal => IsMouseOver ? "StellovisAccentBrush" : "StellovisBorderBrush",
+            ColorState.Highlight => IsMouseOver ? "StellovisAccentHoverBrush" : "StellovisAccentBrush",
             ColorState.Red => IsMouseOver ? "ColorBrushRedLight" : "ColorBrushRedDark",
-            _ => "ColorBrush1"
+            _ => "StellovisBorderBrush"
         };
     }
 
-    private void StartBorderBrushAnimation(string resourceKey, int duration)
+    private string GetBackgroundBrushResourceKey() => ColorType switch
     {
-        Animations.AniStart(
-            new[]
-            {
-                Animations.AaColor(PanFore, BorderBrushProperty, resourceKey, duration)
-            }, "MyButton Color " + Uuid);
-    }
+        ColorState.Highlight => IsMouseOver ? "StellovisAccentHoverBrush" : "StellovisAccentBrush",
+        ColorState.Red => "ColorBrushRedBack",
+        _ => IsMouseOver ? "StellovisSurfaceHoverBrush" : "StellovisSurfaceBrush"
+    };
 
     private void RefreshColor(object obj = null, object e = null)
     {
         try
         {
+            var border = IsEnabled ? GetBorderBrushResourceKey() : "StellovisBorderBrush";
+            var background = IsEnabled ? GetBackgroundBrushResourceKey() : "StellovisSurfaceMutedBrush";
+            var foreground = !IsEnabled ? "StellovisMutedTextBrush" : ColorType switch
+            {
+                ColorState.Highlight => "StellovisOnAccentBrush",
+                ColorState.Red => "ColorBrushRedDark",
+                _ => "StellovisTextBrush"
+            };
             if (ControlVisualHelpers.ShouldAnimate(this)) // 防止默认属性变更触发动画
             {
-                if (IsEnabled)
-                    StartBorderBrushAnimation(GetBorderBrushResourceKey(), IsMouseOver ? animationColorIn : animationColorOut);
-                else
-                    // 不可用（Gray 4）
-                    Animations.AniStart(
-                        new[]
-                        {
-                            Animations.AaColor(PanFore, BorderBrushProperty,
-                                ThemeManager.colorGray4 - PanFore.BorderBrush, animationColorOut)
-                        }, "MyButton Color " + Uuid);
+                var duration = IsMouseOver ? animationColorIn : animationColorOut;
+                Animations.AniStart(new[]
+                {
+                    Animations.AaColor(PanFore, BorderBrushProperty, border, duration),
+                    Animations.AaColor(PanFore, BackgroundProperty, background, duration),
+                    Animations.AaColor(LabText, TextBlock.ForegroundProperty, foreground, duration)
+                }, "MyButton Color " + Uuid);
             }
             else
             {
                 Animations.AniStop("MyButton Color " + Uuid);
-                if (IsEnabled)
-                    PanFore.SetResourceReference(BorderBrushProperty, GetBorderBrushResourceKey());
-                else
-                    PanFore.BorderBrush = ThemeManager.colorGray4;
+                PanFore.SetResourceReference(BorderBrushProperty, border);
+                PanFore.SetResourceReference(BackgroundProperty, background);
+                LabText.SetResourceReference(TextBlock.ForegroundProperty, foreground);
             }
         }
         catch (Exception ex)
@@ -187,19 +190,20 @@ public partial class MyButton
             new[]
             {
                 Animations.AaScaleTransform(PanFore,
-                    0.955d - ((ScaleTransform)PanFore.RenderTransform).ScaleX, 80,
-                    ease: new Animations.AniEaseOutFluent(Animations.AniEasePower.ExtraStrong)),
-                Animations.AaScaleTransform(PanFore, -0.01d, 700,
-                    ease: new Animations.AniEaseOutFluent())
+                    0.975d - ((ScaleTransform)PanFore.RenderTransform).ScaleX, 90,
+                    ease: new Animations.AniEaseOutFluent(Animations.AniEasePower.Strong))
             }, "MyButton Scale " + Uuid);
     }
 
     private void Button_MouseEnter()
     {
+        if (!IsEnabled || isMouseDown)
+            return;
         Animations.AniStart(
-            Animations.AaColor(PanFore, BackgroundProperty,
-                _ColorType == ColorState.Red ? "ColorBrushRedBack" : "ColorBrush7", animationColorIn),
-            "MyButton Background " + Uuid);
+            Animations.AaScaleTransform(PanFore,
+                1.012d - ((ScaleTransform)PanFore.RenderTransform).ScaleX, 180,
+                ease: new Animations.AniEaseOutFluent(Animations.AniEasePower.Strong)),
+            "MyButton Scale " + Uuid);
     }
 
     private void Button_MouseUp()
@@ -211,24 +215,17 @@ public partial class MyButton
             new[]
             {
                 Animations.AaScaleTransform(PanFore,
-                    1d - ((ScaleTransform)PanFore.RenderTransform).ScaleX, 300, 10,
+                    (IsMouseOver ? 1.012d : 1d) - ((ScaleTransform)PanFore.RenderTransform).ScaleX, 220, 0,
                     new Animations.AniEaseOutFluent())
             }, "MyButton Scale " + Uuid);
     }
 
     private void Button_MouseLeave()
     {
-        if (!IsMouseOver)
-            Animations.AniStart(
-                Animations.AaColor(PanFore, BackgroundProperty, "ColorBrushHalfWhite",
-                    animationColorOut),
-                "MyButton Background " + Uuid);
-        if (!isMouseDown)
-            return;
         isMouseDown = false;
         Animations.AniStart(
             Animations.AaScaleTransform(PanFore,
-                1d - ((ScaleTransform)PanFore.RenderTransform).ScaleX, 800,
+                1d - ((ScaleTransform)PanFore.RenderTransform).ScaleX, 220,
                 ease: new Animations.AniEaseOutFluent(Animations.AniEasePower.Strong)),
             "MyButton Scale " + Uuid);
     }

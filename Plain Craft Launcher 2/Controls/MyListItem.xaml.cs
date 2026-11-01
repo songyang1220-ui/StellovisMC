@@ -172,7 +172,7 @@ public partial class MyListItem : IMyRadio
     private void MyListItem_Loaded(object sender, RoutedEventArgs e)
     {
         if (Checked)
-            SetResourceReference(ForegroundProperty, Height < 40d ? "ColorBrush3" : "ColorBrush2");
+            SetResourceReference(ForegroundProperty, Height < 40d ? "StellovisNavigationTextBrush" : "ColorBrush2");
         else
             SetResourceReference(ForegroundProperty, "ColorBrush1");
         ColumnPaddingRight.Width = new GridLength(MinPaddingRight);
@@ -197,7 +197,7 @@ public partial class MyListItem : IMyRadio
                 var rect = new Border
                 {
                     Name = "RectBack",
-                    CornerRadius = new CornerRadius(IsScaleAnimationEnabled || Height > 40d ? 6 : 0),
+                    CornerRadius = new CornerRadius(IsScaleAnimationEnabled || Height > 40d ? 10 : 0),
                     RenderTransform = IsScaleAnimationEnabled ? new ScaleTransform(0.8d, 0.8d) : null,
                     RenderTransformOrigin = new Point(0.5d, 0.5d),
                     BorderThickness = new Thickness(Common.GetWpfSize(1d)),
@@ -356,7 +356,7 @@ public partial class MyListItem : IMyRadio
     private void ApplyScaleAnimationEnabled(bool value)
     {
         if (_rectBack is not null)
-            RectBack.CornerRadius = new CornerRadius(value ? 6 : 0);
+            RectBack.CornerRadius = new CornerRadius(value ? 10 : 0);
     }
 
     // 边距
@@ -795,7 +795,7 @@ public partial class MyListItem : IMyRadio
                 SnapsToDevicePixels = false,
                 Margin = Checked ? new Thickness(-1, 6d, 0d, 6d) : new Thickness(-1, 0d, 0d, 0d)
             };
-            rectCheck.SetResourceReference(Border.BackgroundProperty, "ColorBrush3");
+            rectCheck.SetResourceReference(Border.BackgroundProperty, "StellovisNavigationTextBrush");
             SetRowSpan(rectCheck, 4);
             Children.Add(rectCheck);
         }
@@ -1032,7 +1032,7 @@ public partial class MyListItem : IMyRadio
                 }
 
                 anim.Add(Animations.AaColor(this, ForegroundProperty,
-                    Height < 40d ? "ColorBrush3" : "ColorBrush2", 200));
+                    Height < 40d ? "StellovisNavigationTextBrush" : "ColorBrush2", 200));
             }
             else
             {
@@ -1077,7 +1077,7 @@ public partial class MyListItem : IMyRadio
                     rectCheck.RenderTransform = null; // 清除缩放
                 }
 
-                SetResourceReference(ForegroundProperty, Height < 40d ? "ColorBrush3" : "ColorBrush2");
+                SetResourceReference(ForegroundProperty, Height < 40d ? "StellovisNavigationTextBrush" : "ColorBrush2");
             }
             else
             {

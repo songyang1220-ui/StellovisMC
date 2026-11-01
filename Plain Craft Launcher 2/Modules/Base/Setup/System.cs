@@ -1,4 +1,5 @@
 using System.Net;
+using System.Windows;
 using PCL.Core.App;
 using PCL.Core.IO.Net.Http;
 using PCL.Core.Utils.Exts;
@@ -15,9 +16,11 @@ public partial class Setup
 
     public static void SystemDebugAnim(int value)
     {
-        Animations.aniSpeed = value >= 30
+        Animations.aniSpeed = value >= 30 || !SystemParameters.ClientAreaAnimation
             ? 200d
             : Common.MathClamp(value * 0.1d + 0.1d, 0.1d, 3d);
+        if (Launcher.frmMain?.Starfield is { } sky)
+            sky.MotionEnabled = value < 30;
     }
 
     public static void SystemHttpProxy(string value)

@@ -39,7 +39,7 @@ partial class Lifecycle
         _droppedPendingLogs++;
     }
 
-    public static string PendingLogDirectory { get; set; } = @"PCL\Log";
+    public static string PendingLogDirectory { get; set; } = @"StellovisMC\Log";
     public static string PendingLogFileName { get; set; } = "LastPending.log";
 
     /// <summary>

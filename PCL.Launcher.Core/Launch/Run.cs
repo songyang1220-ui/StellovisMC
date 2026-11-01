@@ -319,7 +319,7 @@ public static partial class GameLaunch
         {
             LauncherCommon.WriteFile(
                 currentLaunchOptions!.SaveBatch
-                ?? $@"{LauncherPaths.ExecutableDirectory}PCL\LatestLaunch.bat",
+                ?? $@"{LauncherPaths.Data}LatestLaunch.bat",
                 LogFilter.FilterAccessToken(
                     _CreateLaunchScript(customCommandGlobal, customCommandVersion),
                     'F'

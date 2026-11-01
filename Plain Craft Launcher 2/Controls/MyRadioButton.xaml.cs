@@ -30,9 +30,9 @@ public partial class MyRadioButton
 
     // 动画
 
-    private const int animationTimeOfMouseIn = 90; // 鼠标指向动画长度
-    private const int animationTimeOfMouseOut = 150; // 鼠标移出动画长度
-    private const int animationTimeOfCheck = 120; // 勾选状态变更动画长度
+    private const int animationTimeOfMouseIn = 160; // 鼠标指向动画长度
+    private const int animationTimeOfMouseOut = 200; // 鼠标移出动画长度
+    private const int animationTimeOfCheck = 190; // 勾选状态变更动画长度
 
     public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string),
         typeof(MyRadioButton), new PropertyMetadata((sender, e) =>

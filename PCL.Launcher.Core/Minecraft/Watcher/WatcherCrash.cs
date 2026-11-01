@@ -33,7 +33,7 @@ public static partial class GameWatcher
                             [
                                 version.PathInstance + version.Name + ".json",
                                 LogWrapper.CurrentLogger.CurrentLogFiles.Last(),
-                                LauncherPaths.ExecutableDirectory + @"PCL\LatestLaunch.bat"
+                                LauncherPaths.Data + @"LatestLaunch.bat"
                             ]);
                     },
                     "Crash Analyzer");

@@ -8,17 +8,20 @@ public sealed class WpfClipboardService : IClipboardService
 {
     public string[]? GetFileDropList()
     {
-        var dataObject = Clipboard.GetDataObject();
-        return dataObject?.GetData(DataFormats.FileDrop) as string[];
+        return PlatformServices.UiDispatcher?.Invoke(() =>
+        {
+            var dataObject = Clipboard.GetDataObject();
+            return dataObject?.GetData(DataFormats.FileDrop) as string[];
+        });
     }
 
     public string? GetText()
     {
-        return Clipboard.GetText();
+        return PlatformServices.UiDispatcher?.Invoke(Clipboard.GetText);
     }
 
     public void SetText(string text)
     {
-        Clipboard.SetText(text);
+        PlatformServices.UiDispatcher?.Invoke(() => Clipboard.SetText(text));
     }
 }

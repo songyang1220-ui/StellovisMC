@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:svgIcon="clr-namespace:PCL.Core.UI.Controls.SvgIcon;assembly=PCL.Core.Wpf"
         HorizontalAlignment="Center" VerticalAlignment="Center" Background="{StaticResource ColorBrushSemiTransparent}"
-        CornerRadius="13.5" MinHeight="27" MaxHeight="27">
+        CornerRadius="11" MinHeight="27" MaxHeight="27">
     <StackPanel Orientation="Horizontal">
         <Grid x:Name="LogoHost"
               Width="16" Height="16"
@@ -25,6 +25,7 @@
                          IconBrush="{Binding Fill, ElementName=ShapeLogo}" />
         </Grid>
         <TextBlock x:Name="LabText"
+                   FontWeight="SemiBold"
                    VerticalAlignment="Center"
                    Foreground="White"
                    Margin="8,0,12,0"

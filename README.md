@@ -1,73 +1,65 @@
-**简体中文** | [English](README-EN.md) | [繁體中文](README-ZH_TW.md)
-
 <div align="center">
 
-<img src="Plain Craft Launcher 2/Images/icon.ico" alt="Logo" width="80" height="80">
+<img src="branding/StellovisMC-icon.png" width="112" height="112" alt="StellovisMC icon" />
 
-# PCL Community Edition
+# StellovisMC
 
-[![Stars](https://img.shields.io/github/stars/PCL-Community/PCL-CE?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHBhdGggZD0iTTggLjI1YS43NS43NSAwIDAgMSAuNjczLjQxOGwxLjg4MiAzLjgxNSA0LjIxLjYxMmEuNzUuNzUgMCAwIDEgLjQxNiAxLjI3OWwtMy4wNDYgMi45Ny43MTkgNC4xOTJhLjc1MS43NTEgMCAwIDEtMS4wODguNzkxTDggMTIuMzQ3bC0zLjc2NiAxLjk4YS43NS43NSAwIDAgMS0xLjA4OC0uNzlsLjcyLTQuMTk0TC44MTggNi4zNzRhLjc1Ljc1IDAgMCAxIC40MTYtMS4yOGw0LjIxLS42MTFMNy4zMjcuNjY4QS43NS43NSAwIDAgMSA4IC4yNVoiIGZpbGw9IiNlYWM1NGYiLz48L3N2Zz4=&logoSize=auto&label=stars&labelColor=444444&color=eac54f)](https://github.com/PCL-Community/PCL-CE/)
-![GitHub Release](https://img.shields.io/github/v/release/PCL-Community/PCL-CE?label=release&logo=github&style=for-the-badge)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/PCL-Community/PCL-CE/build-test.yml?style=for-the-badge)
+A Windows desktop launcher for Minecraft: Java Edition.
 
-[![Issues](https://img.shields.io/github/issues/PCL-Community/PCL-CE?style=for-the-badge&label=issues&labelColor=444444&color=1F883D&logo=github)](https://github.com/PCL-Community/PCL-CE/issues)
-[![Pull requests](https://img.shields.io/github/issues-pr/PCL-Community/PCL-CE?style=for-the-badge&label=pull%20requests&labelColor=444444&color=1F883D&logo=github)](https://github.com/PCL-Community/PCL-CE/pulls)
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/PCL-Community/PCL-CE/total?style=for-the-badge)
-[![哔哩哔哩](https://img.shields.io/badge/动态-bilibili-00A4DB?style=for-the-badge&labelColor=444444&logo=bilibili)](https://space.bilibili.com/3546847192811755/dynamic) <br />
-
-<a href="https://trendshift.io/repositories/21800?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-21800" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/21800/weekly?language=C%23" alt="PCL-Community%2FPCL-CE | Trendshift" width="250" height="55"/></a>
-<a href="https://trendshift.io/repositories/21800" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/repositories/21800" alt="PCL-Community%2FPCL-CE | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-
-[社区版下载](https://github.com/PCL-Community/PCL-CE/releases/latest) |
-[上游存储库](https://github.com/Meloong-Git/PCL)
-
-[提交问题](https://github.com/PCL-Community/PCL-CE/issues/new/choose) |
-[贡献指南](https://github.com/PCL-Community/PCL-CE/wiki/开发指南)
+星空、磨砂玻璃与轻盈交互，为下一段冒险准备的 Minecraft Java 启动器。
 
 </div>
 
-PCL CE 是基于 PCL 开源代码二次开发的社区版本，包括了主线暂未制作的功能和改进！
+StellovisMC 是第三方基于 [PCL-CE](https://github.com/PCL-Community/PCL-CE) 及 [Plain Craft Launcher](https://github.com/Meloong-Git/PCL) 独立修改的项目，保留其游戏实例管理、下载与账户登录架构，并重新设计品牌与外观。原作者：**龙腾猫跃**；原社区版本：**PCL Community**。本项目与 Mojang、Microsoft、原作者及 PCL 社区不存在官方隶属或背书关系。
 
-社区版的版本号与主线并非严格对应关系，也请不要向官方仓库反馈社区版问题。
+Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.
 
-欢迎大家来用用看！
+## 当前外观与功能
 
-**开发群:** [599620549](https://qm.qq.com/q/PNQA4Md8wc)[✦](https://t.me/+78XW2bUOvKJjMTZl) | **用户 1 群:** [1028074835](https://qm.qq.com/q/qrMGJo8BQQ) | **用户 2 群:** [1070029541](https://qm.qq.com/q/lBywbDMWhG)
+- 日系卡通剪纸风格的星星图标与 StellovisMC 品牌。
+- 明暗主题、透明磨砂侧栏、圆角卡片及平滑页面过渡。
+- 星云背景、闪烁星点、漂浮星尘和间歇流星；窗口后台暂停背景绘制。
+- 约 1.1 秒的星光汇聚启动动画；支持关闭动画及系统减少动画设置。
+- 启动器数据保存于程序旁的 `StellovisMC/`，首次运行自动迁移旧 `PCL/` 数据。
+- Minecraft Java 实例管理、版本安装与资源管理沿用上游架构。
 
-## 💻 支持平台
+![StellovisMC startup artwork](branding/startup-preview.png)
 
-| 操作系统 | 支持情况 | 环境要求 |
-|---|---|---|
-| Windows 10 1809 (17763) 或更高 | ✅ 完整支持 | [.NET 10 Desktop Runtime](https://get.dot.net/10) |
-| Windows 8 - Windows 10 1809 (17763) | ⚠️ 理论能跑，酌情提供社区支持 | [.NET 10 Desktop Runtime](https://get.dot.net/10) |
-| Windows 7 或更低版本 | ❌ 不支持 | / |
-| macOS / Linux / 其他操作系统 | ⚠️ 仅跨平台开发支持（交叉编译） | [.NET 10 SDK](https://get.dot.net/10) |
+## Microsoft 登录状态
 
-**✅ 完整支持**：尽可能提供一切相关支持，但必须确保启动器为最新版本。
+本项目使用**自己的 Microsoft 应用注册**，通过设备代码流程登录个人 Microsoft 账号，权限为 `XboxLive.signin offline_access`。用户在微软的登录网页完成身份验证，启动器不收集 Microsoft 密码。
 
-**⚠️ 理论能跑，酌情提供社区支持**：PCL CE 应该可以在这些平台上运行，但不保证功能完全可用。你可能需要升级到完整支持的系统版本以获得进一步社区技术支持。
+目前已验证设备代码、Microsoft OAuth、Xbox Live 与 XSTS 流程。**Minecraft Services 返回 403，当前应用的 Minecraft API 访问申请尚待提交及审批，完整正版登录和游戏启动尚未验证成功。** 注册 Microsoft 应用本身不等于取得 Minecraft API 准入。
 
-**❌ 不支持**：PCL CE 在这些平台的可用性较低，甚至压根打不开。请升级操作系统以使用 PCL CE。
+公开的 Application (client) ID：`415dda5e-8275-43a0-935c-f0347c3eb2d6`。该 ID 是公开应用标识，并非 Client Secret。详细配置见 [Microsoft OAuth 说明](branding/Microsoft-OAuth.md)。
 
-**⚠️ 仅跨平台开发支持（交叉编译）**：PCL CE 的源代码可以在 macOS 与 Linux 平台编译，但无法直接运行。作为开发者，你可以在这些平台上进行开发，然后将编译产物转移到 Windows 系统测试。
+## 环境与编译
 
-**注**：    
-社区仅对最新版本的启动器提供支持。    
-取决于部分问题的特殊性（如系统不完整），有时你仍然必须升级操作系统以继续获得支持。    
-PCL CE 始终建议使用最新版本的操作系统以获得最佳体验。    
-你仍然可以尝试在不受支持的系统上使用 PCL CE，但可能会遇到很多额外问题。
+桌面程序基于 **.NET 10 / WPF**，在 Windows 上运行。开发需要 .NET 10 SDK；下方命令生成 x64、依赖 .NET 10 Desktop Runtime 的单文件程序。
 
-## 🔒 许可证
+```powershell
+dotnet restore ".\Plain Craft Launcher 2\Plain Craft Launcher 2.csproj" -p:Platform=x64
+dotnet publish ".\Plain Craft Launcher 2\Plain Craft Launcher 2.csproj" -c Release -p:Platform=x64 --self-contained false -o .\dist\StellovisMC
+```
 
-- `Plain Craft Launcher 2/` 使用 [自定义许可证](https://github.com/PCL-Community/PCL-CE/blob/dev/Plain%20Craft%20Launcher%202/LICENCE)
-- `其余所有目录` 使用 [Apache License 2.0](https://github.com/PCL-Community/PCL-CE/blob/dev/LICENSE)
+运行输出目录中的 `StellovisMC.exe`。构建不需要 Microsoft Client Secret。上游内部项目名和命名空间仍保留为 `PCL.*`，Minecraft 实例元数据路径保留兼容性。
 
-## 🌟 统计数据
-![Alt](https://repobeats.axiom.co/api/embed/3e46296e6e3a134991a783480fd2f62723bb0353.svg "Repobeats analytics image")
+## 验证状态
 
-[![Star History Chart](https://api.star-history.com/chart?repos=PCL-Community/PCL-CE&type=date&legend=top-left&sealed_token=Ts-GaAXJ5nb9fJERusrXneo05pfZ83tMhReHJ98nmmlemBTqHS5Ozocdep1MTMdsX-6CRiQH9TqiS1Kk7SxjTfk02eUOxnm25oHff6TLLvrY7pGujOkU1IwjVFQLE-5GJYogutJAyI78jujBlOnpk3J2OKAY1PBhmkyUOzW1C1sdz5BzPbj2eBbJGvDx)](https://www.star-history.com/?repos=PCL-Community%2FPCL-CE&type=date&legend=top-left)
+针对数据迁移、星空渲染、启动动画、Microsoft 登录配置及剪贴板 STA 调度的 **12 项关联回归测试通过**；本地 Release 发布编译通过。上游全量测试仍存在语言资源、编码初始化、缓存及测试宿主等失败项，完整测试集尚未全部通过。
 
-**此页浏览量**（总计 / 今日）：[![Hits](https://hits.zkitefly.eu.org/?tag=https://github.com/PCL-Community/PCL-CE)](https://hits.zkitefly.eu.org/?tag=https://github.com/PCL-Community/PCL-CE&web=true)
-## ❤️ 贡献者
+```powershell
+dotnet test .\PCL.Core.Test\PCL.Core.Test.csproj -c Release --filter "FullyQualifiedName~DataDirectoryMigrationTest|FullyQualifiedName~StarfieldBackgroundTest|FullyQualifiedName~StartupAnimationTest|FullyQualifiedName~MicrosoftLoginConfigurationTest|FullyQualifiedName~WpfClipboardServiceTest"
+```
 
-[![](https://contrib.rocks/image?repo=PCL-Community/PCL-CE)](https://github.com/PCL-Community/PCL-CE/graphs/contributors)
+剪贴板回归测试会短暂写入固定测试内容，并在结束后还原剪贴板。请在本机交互桌面环境运行。
+
+## 上游与许可证
+
+- 原作者 **龙腾猫跃**：[源项目](https://github.com/Meloong-Git/PCL)、[赞助](https://afdian.com/a/LTCat)。
+- 社区基础项目：[PCL-Community/PCL-CE](https://github.com/PCL-Community/PCL-CE)。
+- `Plain Craft Launcher 2/` 继续保留上游的 [PCL 分发有限许可及合理使用指南](Plain%20Craft%20Launcher%202/LICENCE)，其中包含二次创作的署名、名称及分发相关要求。
+- 其他部分沿用 [Apache License 2.0](LICENSE) 及文件中已有的第三方许可声明。
+- 原始项目说明保存在 [README-UPSTREAM.md](README-UPSTREAM.md)。
+
+本仓库保留原有版权和许可文本；请在使用或分发相关代码及资源前阅读对应文件。
